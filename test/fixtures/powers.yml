@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  note: MyText
+  person_id: 
+  app_module_id: 
+  app_role_id: 
+
+two:
+  note: MyText
+  person_id: 
+  app_module_id: 
+  app_role_id: 

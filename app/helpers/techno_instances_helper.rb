@@ -1,0 +1,2 @@
+module TechnoInstancesHelper
+end

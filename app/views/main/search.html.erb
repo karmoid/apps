@@ -1,0 +1,28 @@
+<h1>Résultat de recherche</h1>
+<p>Recherche: <b><%= params[:search]%></b></p>
+
+<div class="bs-component">
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Note</th>
+        <th>Information</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render(partial: "searchresult", locals: {result: @app_modules, element: "app_modules", title: "Modules Applicatifs"}) %>
+      <%= render(partial: "searchresult", locals: {result: @app_roles, element: "app_roles", title: "Rôles"}) %>
+      <%= render(partial: "searchresult", locals: {result: @applications, element: "applications", title: "Applications"}) %>
+      <%= render(partial: "searchresult", locals: {result: @deployments, element: "deployments", title: "Déploiements"}) %>
+      <%= render(partial: "searchresult", locals: {result: @entities, element: "entities", title: "Entités"}) %>
+      <%= render(partial: "searchresult", locals: {result: @hosts, element: "hosts", title: "Hôtes"}) %>
+      <%= render(partial: "searchresult", locals: {result: @lifecycles, element: "lifecycles", title: "Cycle de vie"}) %>
+      <%= render(partial: "searchresult", locals: {result: @mainteners, element: "mainteners", title: "Société de maintenance"}) %>
+      <%= render(partial: "searchresult", locals: {result: @people, element: "people", title: "Contacts"}) %>
+      <%= render(partial: "searchresult", locals: {result: @realisations, element: "realisations", title: "Plateformes"}) %>
+      <%= render(partial: "searchresult", locals: {result: @techno_instances, element: "techno_instances", title: "Instances Techniques"}) %>
+      <%= render(partial: "searchresult", locals: {result: @technologies, element: "technologies", title: "Technologies"}) %>
+    </tbody>
+  </table>
+</div>

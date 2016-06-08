@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="bs-component">
+      <div class="col-lg-12">
+        <h2 id="type-blockquotes"><%= link_to @application.name, controller: :applications, action: :show, id: @application.id, :search => params[:search] %> / <b><%= @app_module.name %></b></h2>
+      </div>
+      <blockquote>
+        <p><%= @app_module.note %></p>
+        <span class="label label-info"><%= link_to "#" + @app_module.id.to_s, rails_admin.edit_path(model_name: "app_module", id: @app_module.id) %></span> <span class="label label-default"><%= @application.updated_at %></span>
+      </blockquote>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="bs-component">
+
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge"><%= @people.count %></span> Contacts</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @people.each do |p| %>
+              <li class="list-group-item">
+                <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% unless @maintener.nil? %>
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span class="badge"><%= @mainteners.count %></span> Mainteneur <%= @maintener.name %></h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <% @mainteners.each do |p| %>
+              <li class="list-group-item">
+                <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge"><%= @hostsprod.count %></span> Production</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @hostsprod.each do |p| %>
+              <li class="list-group-item">
+                <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge"><%= @hostspprod.count %></span> Pré Production</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @hostspprod.each do |p| %>
+            <li class="list-group-item">
+              <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge"><%= @hostsdev.count %></span> Développement</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @hostsdev.each do |p| %>
+            <li class="list-group-item">
+              <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

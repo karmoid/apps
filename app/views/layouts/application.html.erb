@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apps</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% # div id="main-container" class="container-fluid" %>
+  <div id="main-container" class="container">
+    <div class="row">
+      <div class="col-xs-12">
+          <div class="bs-component">
+              <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">AppsMgt</a>
+                  </div>
+
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="http://brinkslatam.service-now.com">Service-now <span class="sr-only">(current)</span></a></li>
+                      <li><a href="http://frmonnxthnk06.emea.brinksgbl.com">Nexthink</a></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Informations <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "applications", title: "Applications"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_modules", title: "Modules Applicatifs"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "realisations", title: "Déploiements Applicatifs"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "hosts", title: "Hôtes"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "technologies", title: "Eléments technologiques"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "techno_instances", title: "Instances"}) %></li>
+                          <li class="divider"></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "mainteners", title: "Mainteneurs"}) %></li>
+                          <li class="divider"></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "people", title: "Contacts"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_roles", title: "Rôles"}) %></li>
+                          <li class="divider"></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "deployments", title: "Types de déploiement"}) %></li>
+                          <li><%= render(partial: "/layouts/menuitem", locals: {element: "lifecycles", title: "Cycles de vie"}) %></li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <%= form_tag("/main/search", method: "get", class: "navbar-form navbar-left", role: "search") do %>
+                      <div class="form-group">
+                        <%= text_field_tag(:search, params[:search], class: "form-control") %>
+                      </div>
+                      <%= submit_tag("Chercher", class: "btn btn-default") %>
+                    <% end %>
+
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><%= link_to "Tableau de bord", rails_admin.dashboard_path() %></li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

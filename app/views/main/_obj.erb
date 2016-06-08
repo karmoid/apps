@@ -1,0 +1,2 @@
+<tr><td><%= link_to obj.name, :controller => obj.class.name.tableize, action: :show,  id: obj.id, :search => params[:search] %></td><td>
+<%= obj.note %></td><td><%= title %></td></tr>

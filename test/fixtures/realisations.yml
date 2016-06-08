@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  note: MyText
+  techno_instance_id: 
+  app_modules_id: 
+
+two:
+  note: MyText
+  techno_instance_id: 
+  app_modules_id: 
