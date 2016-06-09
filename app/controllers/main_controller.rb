@@ -1,9 +1,17 @@
 class MainController < ApplicationController
 
   def index
-    @app_modules_count = AppModule.all.count
+    @app_modules_c = AppModule.where(AppModule.arel_table[:created_at].gt(Date.today-3)).
+                               order(created_at: :desc).limit(5)
+    @app_modules_u = AppModule.where(AppModule.arel_table[:updated_at].gt(Date.today-3)).
+                               where(AppModule.arel_table[:created_at].lt(Date.today-3)).
+                               order(updated_at: :desc).limit(5)
+    @applications_c = Application.where(Application.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @applications_u = Application.where(Application.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Application.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
     @app_roles_count = AppRole.all.count
-    @applications_count = Application.all.count
     @deployments_count = Deployment.all.count
     @entities_count = Entity.all.count
     @hosts_count = Host.all.count
@@ -18,7 +26,7 @@ class MainController < ApplicationController
   def search
     # DRY Needed !!!
     counter = 0
-    
+
     @app_modules = AppModule.search(params[:search])
     objet ||= @app_modules.first
     counter += @app_modules.count

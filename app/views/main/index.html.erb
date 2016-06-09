@@ -1,5 +1,107 @@
 <h1>Cartographie applicative</h1>
 <p><%= @app_modules_count %> Modules applicatifs - <%= @app_roles_count %> Rôles - <%= @applications_count %> Applications -
 <%= @deployments_count %> Types de déploiement - <%= @entities_count %> Entités - <%= @hosts_count %> Hôtes -
-<%= @lifecycles_count %> Cycles de vie - <%= @mainteners_count %> Mainteneurs - <%= @people_count %> Contacts - 
+<%= @lifecycles_count %> Cycles de vie - <%= @mainteners_count %> Mainteneurs - <%= @people_count %> Contacts -
 <%= @realisations_count %> Déploiements - <%= @techno_instances_count %> Instances - <%= @technologies_count %> Eléments techniques</p>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="bs-component">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Applications</a></li>
+        <li><a href="#profile" data-toggle="tab">Modules applicatifs</a></li>
+        <li class="disabled"><a>Disabled</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Dropdown <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+            <li class="divider"></li>
+            <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="home">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="bs-component">
+                <div class="panel panel-info">
+                  <div class="panel-heading">Derniers créés</div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                      <% @applications_c.each do |p| %>
+                      <li class="list-group-item">
+                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.created_at.to_i) %></span>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="bs-component">
+                <div class="panel panel-info">
+                  <div class="panel-heading">Derniers mis à jour</div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                      <% @applications_u.each do |p| %>
+                      <li class="list-group-item">
+                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.updated_at.to_i) %></span>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="profile">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="bs-component">
+                <div class="panel panel-info">
+                  <div class="panel-heading">Derniers créés</div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                      <% @app_modules_c.each do |p| %>
+                      <li class="list-group-item">
+                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.created_at.to_i) %></span>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="bs-component">
+                <div class="panel panel-info">
+                  <div class="panel-heading">Derniers mis à jour</div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                      <% @app_modules_u.each do |p| %>
+                      <li class="list-group-item">
+                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.updated_at.to_i) %></span>
+                      </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="dropdown1">
+          <p>todo.</p>
+        </div>
+        <div class="tab-pane fade" id="dropdown2">
+          <p>todo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
