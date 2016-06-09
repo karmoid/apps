@@ -3,7 +3,7 @@ class TechnologiesController < ApplicationController
     @technology = Technology.find(params[:id])
 
     @techno_instances = @technology.techno_instances
-    @hosts = Host.joins(techno_instances: :technology).where(technologies: {id: @technology.id})
+    @hosts = Host.joins(techno_instances: :technology).where(technologies: {id: @technology.id}).distinct
     @realisations = Realisation.joins(techno_instances: :technology).where(technologies: {id: @technology.id}).group(:lifecycle).count
 
     respond_to do |format|
