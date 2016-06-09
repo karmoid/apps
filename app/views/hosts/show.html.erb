@@ -8,17 +8,17 @@
         <p><%= @host.note %></p>
         <div class="well well-sm">
           <%= @deployment.name %> - <b><%= @deployment.note %></b>
-          <% if @lifecycles.count==1 %>
-            <span class="label label-success"><%= @lifecycles.first.name %></span>
-          <% else %>
-            <% firstisok = "success"%>
-            <% @lifecycles.each do |l| %>
-              <span class="label label-<%= firstisok %>"><%= l.name %></span>
-              <% firstisok = "warning" %>
-            <% end %>
-          <% end %>
         </div>
         <span class="label label-info"><%= link_to "#" + @host.id.to_s, rails_admin.edit_path(model_name: "host", id: @host.id) %></span> <span class="label label-default"><%= @host.updated_at %></span>
+        <% if @lifecycles.count==1 %>
+          <span class="label label-success"><%= @lifecycles.first.name %></span>
+        <% else %>
+          <% firstisok = "success"%>
+          <% @lifecycles.each do |l| %>
+            <span class="label label-<%= firstisok %>"><%= l.name %></span>
+            <% firstisok = "warning" %>
+          <% end %>
+        <% end %>
       </blockquote>
     </div>
   </div>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <% if @contracts.count == 0 %>
-      <div class="alert alert-dismissible alert-danger">
+      <div class="alert alert-dismissible alert-danger"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Oh mince!</strong> Un <%= link_to "contrat de support" , rails_admin.new_path(model_name: "contract", class: "alert-link") %> <span class="glyphicon glyphicon-plus"></span>
         ajouté à <%= link_to "cet hôte" , rails_admin.edit_path(model_name: "host", id: @host.id, class: "alert-link") %> <span class="glyphicon glyphicon-pencil"></span> serait bienvenu.
@@ -48,6 +48,7 @@
       <% elsif @techno_instances.count == 0 %>
       <div class="alert alert-dismissible alert-danger">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span class="glyphicon glyphicon-info-sign"></span>&nbsp;
         <strong>Gasp!</strong> Une
         <%= link_to "instance" , rails_admin.new_path(model_name: "techno_instance", class: "alert-link") %> <span class="glyphicon glyphicon-plus"></span>
           ajouté à <%= link_to "cet hôte" , rails_admin.edit_path(model_name: "host", id: @host.id, class: "alert-link") %>
