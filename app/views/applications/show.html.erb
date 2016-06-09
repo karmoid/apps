@@ -23,13 +23,20 @@
     <div class="bs-component">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title"><span class="badge"><%= @powers.count %></span> Rôles</h3>
+          <h3 class="panel-title"><span class="badge"><%= @app_roles.count %></span> Rôles</h3>
         </div>
         <div class="panel-body">
           <ul class="list-group">
-            <% @powers.each do |p| %>
+            <% @app_roles.each do |p| %>
               <li class="list-group-item">
-                <b><%= link_to p.app_role.name, controller: p.app_role.class.name.tableize, action: :show, id: p.app_role.id, :search => params[:search] %></b> <%= p.app_role.note %>
+                <%= link_to controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] do %>
+                  <%= content_tag :span, "", class: "glyphicon glyphicon-log-in" %>
+                <% end %>&nbsp;
+                <%= link_to controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] do %>
+                  <%= content_tag :span, "", class: "glyphicon glyphicon-new-window" %>
+                <% end %>&nbsp;
+                <%= p.name %>&nbsp;
+                <%= p.note %>
               </li>
             <% end %>
           </ul>

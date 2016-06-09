@@ -3,7 +3,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     @app_modules = @application.app_modules
 
-    @powers = @application.powers.distinct
+    @app_roles = AppRole.joins(powers: {app_modules: :application}).where(applications: {id: @application.id}).distinct
     @maintener = @application.maintener
     @mainteners = @maintener.people unless @maintener.nil?
 
