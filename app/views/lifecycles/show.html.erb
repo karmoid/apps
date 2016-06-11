@@ -1,2 +1,4 @@
-<h1>Lifecycles#show</h1>
-<p>Find me in app/views/lifecycles/show.html.erb</p>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @lifecycle}) %>
+
+<%= render(partial: "/layouts/listitems", locals: {items: @realisations}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosts}) %>

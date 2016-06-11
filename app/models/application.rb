@@ -3,6 +3,14 @@ class Application < ActiveRecord::Base
   belongs_to :maintener
   has_many :powers, through: :app_modules
 
+  def self.humanize_model(plural)
+    if plural
+      "applications"
+    else
+      "application"
+    end
+  end
+
   def self.search(search)
     if search
       where(['name like ? or note like ?', "%#{search}%", "%#{search}%"])

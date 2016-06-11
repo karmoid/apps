@@ -1,2 +1,3 @@
-<h1>Entities#show</h1>
-<p>Find me in app/views/entities/show.html.erb</p>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @entity}) %>
+
+<%= render(partial: "/layouts/listitems", locals: {items: @people}) %>

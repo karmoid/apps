@@ -1,55 +1,30 @@
 Rails.application.routes.draw do
-  get 'contracts/index'
+  resources :contracts, only: [:index, :show]
 
-  get 'contracts/show'
+  resources :technologies, only: [:index, :show]
 
-  get 'technologies/show'
+  resources :techno_instances, only: [:index, :show]
 
-  get 'technologies/index'
+  resources :realisations, only: [:index, :show]
 
-  get 'techno_instances/show'
+  resources :people, only: [:index, :show]
 
-  get 'techno_instances/index'
+  resources :mainteners, only: [:index, :show]
 
-  get 'realisations/show'
+  resources :lifecycles, only: [:index, :show]
 
-  get 'realisations/index'
+  resources :entities, only: [:index, :show]
 
-  get 'people/show'
+  resources :app_roles, only: [:index, :show]
 
-  get 'people/index'
+  resources :hosts, only: [:index, :show]
 
-  get 'mainteners/show'
+  resources :deployments, only: [:index, :show]
 
-  get 'mainteners/index'
+  resources :applications, only: [:index, :show]
 
-  get 'lifecycles/show'
+  resources :app_modules, only: [:index, :show]
 
-  get 'lifecycles/index'
-
-  get 'entities/show'
-
-  get 'entities/index'
-
-  get 'deployments/show'
-
-  get 'deployments/index'
-
-  get 'applications/show'
-
-  get 'applications/index'
-
-  get 'app_roles/show'
-
-  get 'app_roles/index'
-
-  get 'app_modules/show'
-
-  get 'app_modules/index'
-
-  get 'hosts/show/:id' => 'hosts#show', as: :host
-  get 'hosts/index'
-  get 'hosts' => "hosts#index"
 
   get 'main/search'
   get 'main/index'

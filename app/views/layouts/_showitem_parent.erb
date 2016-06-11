@@ -1,0 +1,5 @@
+<% if (defined? item) && (! item.nil?) %>
+  <%= link_to item, class: "list-group-item" do %>
+    <p class="list-group-item-text"><%= item.class.humanize_model(false)%>&nbsp;<b><%= item.name.upcase %></b></p>
+  <% end %>
+<% end %>

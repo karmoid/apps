@@ -8,7 +8,15 @@ class Entity < ActiveRecord::Base
       find(:all)
     end
   end
-  
+
+  def self.humanize_model(plural)
+    if plural
+      "entités"
+    else
+      "entité"
+    end
+  end
+
   rails_admin do
     list do
       field :name

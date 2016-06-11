@@ -9,6 +9,14 @@ class AppModule < ActiveRecord::Base
   has_and_belongs_to_many :contracts
 
 
+  def self.humanize_model(plural)
+    if plural
+      "modules applicatifs"
+    else
+      "module applicatif"
+    end
+  end
+
   def self.search(search)
     if search
       where(['name like ? or note like ?', "%#{search}%", "%#{search}%"])

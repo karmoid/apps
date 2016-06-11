@@ -1,2 +1,6 @@
-<h1>Contracts#show</h1>
-<p>Find me in app/views/contracts/show.html.erb</p>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @contract, parent: @maintener}) %>
+
+  <%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>

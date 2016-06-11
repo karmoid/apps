@@ -9,6 +9,14 @@ class Technology < ActiveRecord::Base
     end
   end
 
+  def self.humanize_model(plural)
+    if plural
+      "éléments technologiques"
+    else
+      "élément technologique"
+    end
+  end
+
   rails_admin do
     list do
       field :name

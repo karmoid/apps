@@ -10,96 +10,54 @@
       <ul class="nav nav-tabs">
         <li class="active"><a href="#home" data-toggle="tab">Applications</a></li>
         <li><a href="#profile" data-toggle="tab">Modules applicatifs</a></li>
-        <li class="disabled"><a>Disabled</a></li>
+        <li class="disabled"><a>A venir...</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            Dropdown <span class="caret"></span>
+            Autres éléments <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#dropdown1" data-toggle="tab">Action</a></li>
+            <li><a href="#dropdown1" data-toggle="tab">Technologies</a></li>
+            <li><a href="#dropdown2" data-toggle="tab">Instances</a></li>
+            <li><a href="#dropdown3" data-toggle="tab">Déploiements</a></li>
             <li class="divider"></li>
-            <li><a href="#dropdown2" data-toggle="tab">Another action</a></li>
+            <li><a href="#dropdown4" data-toggle="tab">Rôles</a></li>
+            <li><a href="#dropdown5" data-toggle="tab">Contrats</a></li>
+            <li><a href="#dropdown6" data-toggle="tab">Mainteneurs</a></li>
           </ul>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="home">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="bs-component">
-                <div class="panel panel-info">
-                  <div class="panel-heading">Derniers créés</div>
-                  <div class="panel-body">
-                    <ul class="list-group">
-                      <% @applications_c.each do |p| %>
-                      <li class="list-group-item">
-                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.created_at.to_i) %></span>
-                      </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="bs-component">
-                <div class="panel panel-info">
-                  <div class="panel-heading">Derniers mis à jour</div>
-                  <div class="panel-body">
-                    <ul class="list-group">
-                      <% @applications_u.each do |p| %>
-                      <li class="list-group-item">
-                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.updated_at.to_i) %></span>
-                      </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render(partial: "/layouts/listitems", locals: {items: @applications_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @applications_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
         </div>
         <div class="tab-pane fade" id="profile">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="bs-component">
-                <div class="panel panel-info">
-                  <div class="panel-heading">Derniers créés</div>
-                  <div class="panel-body">
-                    <ul class="list-group">
-                      <% @app_modules_c.each do |p| %>
-                      <li class="list-group-item">
-                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.created_at.to_i) %></span>
-                      </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="bs-component">
-                <div class="panel panel-info">
-                  <div class="panel-heading">Derniers mis à jour</div>
-                  <div class="panel-body">
-                    <ul class="list-group">
-                      <% @app_modules_u.each do |p| %>
-                      <li class="list-group-item">
-                        <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %> <span class="label label-default"><%= humanize(DateTime.now.to_i-p.updated_at.to_i) %></span>
-                      </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render(partial: "/layouts/listitems", locals: {items: @app_modules_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @app_modules_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
         </div>
         <div class="tab-pane fade" id="dropdown1">
-          <p>todo.</p>
+          <%= render(partial: "/layouts/listitems", locals: {items: @technologies_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @technologies_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
         </div>
         <div class="tab-pane fade" id="dropdown2">
-          <p>todo.</p>
+          <%= render(partial: "/layouts/listitems", locals: {items: @techno_instances_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @techno_instances_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
+        </div>
+        <div class="tab-pane fade" id="dropdown3">
+          <%= render(partial: "/layouts/listitems", locals: {items: @realisations_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @realisations_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
+        </div>
+        <div class="tab-pane fade" id="dropdown4">
+          <%= render(partial: "/layouts/listitems", locals: {items: @app_roles_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @app_roles_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
+        </div>
+        <div class="tab-pane fade" id="dropdown5">
+          <%= render(partial: "/layouts/listitems", locals: {items: @contracts_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @contracts_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
+        </div>
+        <div class="tab-pane fade" id="dropdown6">
+          <%= render(partial: "/layouts/listitems", locals: {items: @mainteners_c, toptitle: "Derniers créés", puts_date: :created_at}) %>
+          <%= render(partial: "/layouts/listitems", locals: {items: @mainteners_u, toptitle: "Derniers modifiés", puts_date: :updated_at}) %>
         </div>
       </div>
     </div>

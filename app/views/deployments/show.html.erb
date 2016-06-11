@@ -1,2 +1,5 @@
-<h1>Deployments#show</h1>
-<p>Find me in app/views/deployments/show.html.erb</p>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @deployment}) %>
+
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>

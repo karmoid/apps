@@ -8,7 +8,15 @@ class Deployment < ActiveRecord::Base
       find(:all)
     end
   end
-  
+
+  def self.humanize_model(plural)
+    if plural
+      "types de déploiement"
+    else
+      "type de déploiement"
+    end
+  end
+
   rails_admin do
     list do
       field :name

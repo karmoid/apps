@@ -1,79 +1,8 @@
-<div class="row">
-  <div class="col-lg-6">
-    <div class="bs-component">
-      <div class="col-lg-12">
-        <b><%= @realisation.name %></b></h2>
-      </div>
-      <blockquote>
-        <p><%= @realisation.note %></p>
-        <span class="label label-info"><%= link_to "#" + @realisation.id.to_s, rails_admin.edit_path(model_name: "realisation", id: @realisation.id) %></span>&nbsp;
-        <span class="label label-default"><%= @realisation.updated_at %></span>&nbsp;
-        <span class="label label-success"><%= @realisation.lifecycle.name %></span>
-      </blockquote>
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="bs-component">
+<%= render(partial: "/layouts/showitem_top", locals: {parent: @lifecycle, item: @realisation}) %>
 
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-4">
-    <div class="bs-component">
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <h3 class="panel-title"><span class="badge"></span> Eléments technologiques</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% @technologies.each do |r| %>
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <span class="badge"><%= r[1] %></span>
-                  <%= link_to r[0][:name], controller: "technologies", action: :show, id: r[0][:id], :search => params[:search] %> - <%= r[0][:note] %>
-                </li>
-              </ul>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="bs-component">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h3 class="panel-title"><span class="badge"><%= @app_modules.count %></span> Modules applicatifs</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% @app_modules.each do |p| %>
-            <li class="list-group-item">
-              <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
-            </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4">
-    <div class="bs-component">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h3 class="panel-title">Applications <span class="badge"><%= @applications.count %></span></h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% @applications.each do |p| %>
-            <li class="list-group-item">
-              <b><%= link_to p.name, controller: p.class.name.tableize, action: :show, id: p.id, :search => params[:search] %></b> <%= p.note %>
-            </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <%= render(partial: "/layouts/listitems_count", locals: {items: @technologies}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @applications}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>

@@ -3,6 +3,14 @@ class Realisation < ActiveRecord::Base
   has_and_belongs_to_many :techno_instances
   has_and_belongs_to_many :app_modules
 
+  def self.humanize_model(plural)
+    if plural
+      "déploiements"
+    else
+      "déploiement"
+    end
+  end
+
   def self.search(search)
     if search
       where(['name like ? or note like ?', "%#{search}%", "%#{search}%"])
@@ -10,7 +18,7 @@ class Realisation < ActiveRecord::Base
       find(:all)
     end
   end
-  
+
   rails_admin do
     list do
       field :lifecycle

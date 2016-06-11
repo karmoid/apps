@@ -11,6 +11,39 @@ class MainController < ApplicationController
     @applications_u = Application.where(Application.arel_table[:updated_at].gt(Date.today-3)).
                               where(Application.arel_table[:created_at].lt(Date.today-3)).
                               order(updated_at: :desc).limit(5)
+    @technologies_c = Technology.where(Technology.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @technologies_u = Technology.where(Technology.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Technology.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+    @techno_instances_c = TechnoInstance.where(TechnoInstance.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @techno_instances_u = TechnoInstance.where(TechnoInstance.arel_table[:updated_at].gt(Date.today-3)).
+                              where(TechnoInstance.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+    @realisations_c = Realisation.where(Realisation.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @realisations_u = Realisation.where(Realisation.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Realisation.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+
+
+    @app_roles_c = AppRole.where(AppRole.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @app_roles_u = AppRole.where(AppRole.arel_table[:updated_at].gt(Date.today-3)).
+                              where(AppRole.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+    @contracts_c = Contract.where(Contract.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @contracts_u = Contract.where(Contract.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Contract.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+    @mainteners_c = Maintener.where(Maintener.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)
+    @mainteners_u = Maintener.where(Maintener.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Maintener.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
+
     @app_roles_count = AppRole.all.count
     @deployments_count = Deployment.all.count
     @entities_count = Entity.all.count

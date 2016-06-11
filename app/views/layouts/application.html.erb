@@ -36,16 +36,18 @@
               <ul class="dropdown-menu" role="menu">
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "applications", title: "Applications"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_modules", title: "Modules Applicatifs"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_roles", title: "Rôles"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "realisations", title: "Déploiements Applicatifs"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "hosts", title: "Hôtes"}) %></li>
+                <li class="divider"></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "technologies", title: "Eléments technologiques"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "techno_instances", title: "Instances"}) %></li>
                 <li class="divider"></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "mainteners", title: "Mainteneurs"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "hosts", title: "Hôtes"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "contracts", title: "Contrats"}) %></li>
                 <li class="divider"></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "people", title: "Contacts"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_roles", title: "Rôles"}) %></li>
                 <li class="divider"></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "deployments", title: "Types de déploiement"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "lifecycles", title: "Cycles de vie"}) %></li>
@@ -66,7 +68,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <h1>!</h1>
+      <h1>&nbsp;</h1>
       <%= yield %>
     </div>
   </body>

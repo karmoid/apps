@@ -1,2 +1,4 @@
-<h1>Mainteners#show</h1>
-<p>Find me in app/views/mainteners/show.html.erb</p>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @maintener}) %>
+
+<%= render(partial: "/layouts/listitems", locals: {items: @people}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @contracts}) %>

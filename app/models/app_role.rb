@@ -10,6 +10,14 @@ class AppRole < ActiveRecord::Base
     end
   end
 
+  def self.humanize_model(plural)
+    if plural
+      "rôles"
+    else
+      "rôle"
+    end
+  end
+
   rails_admin do
     list do
       field :name

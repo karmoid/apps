@@ -9,6 +9,14 @@ class Lifecycle < ActiveRecord::Base
     end
   end
 
+  def self.humanize_model(plural)
+    if plural
+      "cycle de vie"
+    else
+      "cycles de vie"
+    end
+  end
+
   rails_admin do
     list do
       field :name

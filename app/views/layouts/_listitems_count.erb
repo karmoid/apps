@@ -1,0 +1,19 @@
+<% if (defined? items) && (! items.nil?) && (items.count > 0) %>
+  <div class="col-lg-4">
+    <div class="bs-component">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge"></span> <%= (defined? toptitle) ? toptitle : items.first[0].class.humanize_model(true) %></h3>
+        </div>
+        <div class="list-group">
+          <% items.each do |r| %>
+            <%= link_to r[0], :search => params[:search], class: "list-group-item" do %>
+                <h5 class="list-group-item-heading"><%= r[0][:name].upcase %>&nbsp;<span class="badge"><%= r[1] %></span></h5>
+                <p class="list-group-item-text"><%= r[0][:note] %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

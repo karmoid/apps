@@ -10,6 +10,14 @@ class Maintener < ActiveRecord::Base
     end
   end
 
+  def self.humanize_model(plural)
+    if plural
+      "mainteneurs"
+    else
+      "mainteneur"
+    end
+  end
+
   has_many :applications
   rails_admin do
     list do

@@ -1,0 +1,27 @@
+<div class="col-lg-4">
+  <div class="bs-component">
+    <div class="list-group">
+      <% if defined? parent %>
+        <% if parent.kind_of?(Array) %>
+          <% parent.each do |parentitem| %>
+            <%= render(partial: "/layouts/showitem_parent", locals: {item: parentitem}) %>
+          <% end %>
+        <% else %>
+          <%= render(partial: "/layouts/showitem_parent", locals: {item: parent}) %>
+        <% end %>
+      <% end %>
+      <a href="#" class="list-group-item">
+        <h3 class="list-group-item-heading"><%= item.name.upcase %></h3>
+        <p class="list-group-item-text"><%= item.note %></p>
+      </a>
+      <%= link_to rails_admin.edit_path(model_name: item.class.name.tableize.singularize, id: item.id), class: "list-group-item" do %>
+        <p class="list-group-item-text">
+          <%= content_tag :span, content_tag(:span, " #{item.class.humanize_model(false)}", class: "glyphicon glyphicon-info-sign"), class: "label label-success" %>&nbsp;
+          <span class="label label-info"><%= "##{item.id.to_s}" %></span>&nbsp;
+          <span class="label label-default"><%= item.updated_at %></span>
+        </p>
+      <% end %>
+    </div>
+
+  </div>
+</div>
