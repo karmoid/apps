@@ -1,4 +1,6 @@
 class Realisation < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   belongs_to :lifecycle
   has_and_belongs_to_many :techno_instances
   has_and_belongs_to_many :app_modules

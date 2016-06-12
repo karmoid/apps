@@ -1,4 +1,6 @@
 class AppModule < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   belongs_to :application
   # has_many :realisations
   # has_many :techno_instances,  -> { uniq }, through: :realisations

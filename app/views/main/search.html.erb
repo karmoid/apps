@@ -23,6 +23,7 @@
       <%= render(partial: "searchresult", locals: {result: @realisations, element: "realisations", title: "Plateformes"}) %>
       <%= render(partial: "searchresult", locals: {result: @techno_instances, element: "techno_instances", title: "Instances Techniques"}) %>
       <%= render(partial: "searchresult", locals: {result: @technologies, element: "technologies", title: "Technologies"}) %>
+      <%= render(partial: "searchresult", locals: {tags: @tags}) %>
     </tbody>
   </table>
 </div>

@@ -1,4 +1,6 @@
 class Application < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   has_many :app_modules
   belongs_to :maintener
   has_many :powers, through: :app_modules

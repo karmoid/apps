@@ -1,4 +1,6 @@
 class TechnoInstance < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   belongs_to :technology
   belongs_to :host
   has_and_belongs_to_many :realisations

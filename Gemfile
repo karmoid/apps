@@ -12,6 +12,9 @@ group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
 end
+gem 'acts-as-taggable-on', '~> 3.4'
+gem 'rails_admin_tag_list'
+
 gem 'seed_dump'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

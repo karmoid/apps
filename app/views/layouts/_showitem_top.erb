@@ -22,6 +22,19 @@
         </p>
       <% end %>
     </div>
-
   </div>
+  <% if ! ((! defined? item.tags) || item.tags.nil? || item.tags.empty?) %>
+    <div class="well">
+      <ul class="nav nav-pills">
+        <li><h5>tags:</h5></li>
+        <% item.tags.each do |t| %>
+          <li><h5>
+            <%= link_to controller: :main, action: :search, search: t.name, tag: true do %>
+              <span class="label label-info"><%= t.name %></span>
+            <% end %>
+          </h5></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>

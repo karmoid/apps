@@ -1,3 +1,13 @@
-<% if !result.empty?  %>
-      <%= render(partial: "obj", collection: result, locals: {title: title}) %>
+<% if (defined? tags) %>
+  <% if ! (tags.nil? || tags.empty?)  %>
+    <tr>
+      <td>TAGS</td>
+      <td><%= render(partial: "tag", collection: tags) %></td>
+      <td></td>
+    </tr>
+  <% end %>
+<% else %>
+  <% if !result.empty?  %>
+    <%= render(partial: "obj", collection: result, locals: {title: title}) %>
+  <% end %>
 <% end %>

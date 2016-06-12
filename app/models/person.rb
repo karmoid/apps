@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   has_and_belongs_to_many :entities
   has_and_belongs_to_many :mainteners
   has_many :powers

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608174523) do
+ActiveRecord::Schema.define(version: 20160612065812) do
 
   create_table "app_modules", force: true do |t|
     t.string   "name"
@@ -171,6 +171,26 @@ ActiveRecord::Schema.define(version: 20160608174523) do
 
   add_index "realisations_techno_instances", ["realisation_id"], name: "index_realisations_techno_instances_on_realisation_id"
   add_index "realisations_techno_instances", ["techno_instance_id"], name: "index_realisations_techno_instances_on_techno_instance_id"
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "techno_instances", force: true do |t|
     t.string   "name"

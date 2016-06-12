@@ -1,4 +1,6 @@
 class AppRole < ActiveRecord::Base
+  acts_as_taggable # Alias for acts_as_taggable_on :tags
+
   has_many :powers
   has_many :people, through: :powers
 

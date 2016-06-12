@@ -56,8 +56,23 @@ class MainController < ApplicationController
     @technologies_count = Technology.all.count
   end
 
-  def search
-    # DRY Needed !!!
+  def search_by_tag
+    @app_modules = AppModule.tagged_with(params[:search])
+    @app_roles = AppRole.tagged_with(params[:search])
+    @applications = Application.tagged_with(params[:search])
+    @deployments = Deployment.where(id: -1);
+    @entities = Entity.tagged_with(params[:search])
+    @hosts = Host.tagged_with(params[:search])
+    @lifecycles = Lifecycle.where(id: -1);
+    @mainteners = Maintener.tagged_with(params[:search])
+    @people = Person.tagged_with(params[:search])
+    @realisations = Realisation.tagged_with(params[:search])
+    @techno_instances = TechnoInstance.tagged_with(params[:search])
+    @technologies = Technology.where(id: -1);
+    @tags = nil
+  end
+
+  def search_by_name
     counter = 0
 
     @app_modules = AppModule.search(params[:search])
@@ -108,9 +123,20 @@ class MainController < ApplicationController
     objet ||= @technologies.first
     counter += @technologies.count
 
-    puts "counter #{counter}"
+    @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: params[:search]}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
+
     if counter==1
       redirect_to controller: objet.class.name.tableize, action: :show, id: objet.id, search: params[:search]
     end
   end
+
+  def search
+    # DRY Needed !!!
+    if params[:tag] == "true"
+      search_by_tag
+    else
+      search_by_name
+    end
+  end
+
 end
