@@ -7,6 +7,7 @@ class HostsController < ApplicationController
     @technologies = @host.technologies
     @applications = Application.joins(app_modules: {realisations: :techno_instances}).where(techno_instances: {host_id: @host.id}).distinct
     @app_modules = AppModule.joins(realisations: :techno_instances).where(techno_instances: {host_id: @host.id}).distinct
+    @realisations = Realisation.joins(:techno_instances).where(techno_instances: {host_id: @host.id}).distinct
 
     @lifecycles = Lifecycle.joins(realisations: :techno_instances).where(techno_instances: {host_id: @host.id}).distinct
     @contracts = @host.contracts
