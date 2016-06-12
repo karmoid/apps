@@ -6,6 +6,7 @@ class AppModulesController < ApplicationController
     @maintener = @application.maintener
     @mainteners = @maintener.people unless @maintener.nil?
     @realisations = Realisation.joins(:app_modules).where(app_modules: {id: @app_module.id}).distinct
+    @documents = @app_module.documents
 
     @people = @app_module.people.distinct
 

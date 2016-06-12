@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612065812) do
+ActiveRecord::Schema.define(version: 20160612190946) do
 
   create_table "app_modules", force: true do |t|
     t.string   "name"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(version: 20160612065812) do
 
   add_index "app_modules_contracts", ["app_module_id"], name: "index_app_modules_contracts_on_app_module_id"
   add_index "app_modules_contracts", ["contract_id"], name: "index_app_modules_contracts_on_contract_id"
+
+  create_table "app_modules_documents", id: false, force: true do |t|
+    t.integer "app_module_id"
+    t.integer "document_id"
+  end
+
+  add_index "app_modules_documents", ["app_module_id"], name: "index_app_modules_documents_on_app_module_id"
+  add_index "app_modules_documents", ["document_id"], name: "index_app_modules_documents_on_document_id"
 
   create_table "app_modules_powers", id: false, force: true do |t|
     t.integer "app_module_id"
@@ -64,6 +72,14 @@ ActiveRecord::Schema.define(version: 20160612065812) do
 
   add_index "applications", ["maintener_id"], name: "index_applications_on_maintener_id"
 
+  create_table "applications_documents", id: false, force: true do |t|
+    t.integer "application_id"
+    t.integer "document_id"
+  end
+
+  add_index "applications_documents", ["application_id"], name: "index_applications_documents_on_application_id"
+  add_index "applications_documents", ["document_id"], name: "index_applications_documents_on_document_id"
+
   create_table "contracts", force: true do |t|
     t.string   "name"
     t.text     "note"
@@ -88,6 +104,40 @@ ActiveRecord::Schema.define(version: 20160612065812) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "document_types", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "documents", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.string   "url"
+    t.integer  "document_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id"
+
+  create_table "documents_hosts", id: false, force: true do |t|
+    t.integer "host_id"
+    t.integer "document_id"
+  end
+
+  add_index "documents_hosts", ["document_id"], name: "index_documents_hosts_on_document_id"
+  add_index "documents_hosts", ["host_id"], name: "index_documents_hosts_on_host_id"
+
+  create_table "documents_techno_instances", id: false, force: true do |t|
+    t.integer "techno_instance_id"
+    t.integer "document_id"
+  end
+
+  add_index "documents_techno_instances", ["document_id"], name: "index_documents_techno_instances_on_document_id"
+  add_index "documents_techno_instances", ["techno_instance_id"], name: "index_documents_techno_instances_on_techno_instance_id"
 
   create_table "entities", force: true do |t|
     t.string   "name"

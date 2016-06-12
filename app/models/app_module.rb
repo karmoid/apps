@@ -9,7 +9,7 @@ class AppModule < ActiveRecord::Base
   has_and_belongs_to_many :powers
   has_many :people,  -> { uniq }, through: :powers
   has_and_belongs_to_many :contracts
-
+  has_and_belongs_to_many :documents
 
   def self.humanize_model(plural)
     if plural

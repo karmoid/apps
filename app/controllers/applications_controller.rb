@@ -6,6 +6,7 @@ class ApplicationsController < ApplicationController
     @app_roles = AppRole.joins(powers: {app_modules: :application}).where(applications: {id: @application.id}).distinct
     @maintener = @application.maintener
     @mainteners = @maintener.people unless @maintener.nil?
+    @documents = @application.documents
 
     @hosts = Host.joins(techno_instances: {realisations: [:app_modules, :lifecycle]}).where(app_modules: {application_id: @application.id})
 

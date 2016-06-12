@@ -4,6 +4,7 @@ class Application < ActiveRecord::Base
   has_many :app_modules
   belongs_to :maintener
   has_many :powers, through: :app_modules
+  has_and_belongs_to_many :documents
 
   def self.humanize_model(plural)
     if plural

@@ -68,7 +68,9 @@ class MainController < ApplicationController
     @people = Person.tagged_with(params[:search])
     @realisations = Realisation.tagged_with(params[:search])
     @techno_instances = TechnoInstance.tagged_with(params[:search])
-    @technologies = Technology.where(id: -1);
+    @technologies = Technology.where(id: -1)
+    @documents = Document.where(id: -1)
+    @document_types = DocumentType.where(id: -1)
     @tags = nil
   end
 
@@ -122,6 +124,14 @@ class MainController < ApplicationController
     @technologies = Technology.search(params[:search])
     objet ||= @technologies.first
     counter += @technologies.count
+
+    @documents = Document.search(params[:search])
+    objet ||= @documents.first
+    counter += @documents.count
+
+    @document_types = DocumentType.search(params[:search])
+    objet ||= @document_types.first
+    counter += @document_types.count
 
     @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: params[:search]}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
 

@@ -3,6 +3,7 @@ class TechnoInstancesController < ApplicationController
     @techno_instance = TechnoInstance.find(params[:id])
     @host = @techno_instance.host
     @technology = @techno_instance.technology
+    @documents = @techno_instance.documents
 
     @realisations = @techno_instance.realisations.group(:lifecycle).count
     @hosts = Host.joins([techno_instances: {realisations: [:lifecycle]}]).where(techno_instances: {id: @techno_instance.id})

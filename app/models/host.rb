@@ -9,6 +9,8 @@ class Host < ActiveRecord::Base
   # has_many :applications,  -> { uniq }, through: :app_modules
   has_many :technologies,  -> { uniq }, through: :techno_instances
   has_and_belongs_to_many :contracts
+  has_and_belongs_to_many :documents
+  
 
   def self.humanize_model(plural)
     if plural
