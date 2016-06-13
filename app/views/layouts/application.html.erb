@@ -19,12 +19,12 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">Echange navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">AppsMgt</a>
+          <a class="navbar-brand" href="/">Karto</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -32,27 +32,35 @@
             <li class="active"><a href="http://brinkslatam.service-now.com">Service-now <span class="sr-only">(current)</span></a></li>
             <li><a href="http://frmonnxthnk06.emea.brinksgbl.com">Nexthink</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Informations <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Concepts <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "applications", title: "Applications"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_modules", title: "Modules Applicatifs"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_roles", title: "Rôles"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "realisations", title: "Déploiements Applicatifs"}) %></li>
-                <li class="divider"></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "technologies", title: "Eléments technologiques"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "techno_instances", title: "Instances"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "documents", title: "Documents"}) %></li>
                 <li class="divider"></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "mainteners", title: "Mainteneurs"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "hosts", title: "Hôtes"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "app_roles", title: "Rôles"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "contracts", title: "Contrats"}) %></li>
-                <li class="divider"></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
-                <li><%= render(partial: "/layouts/menuitem", locals: {element: "people", title: "Contacts"}) %></li>
-                <li class="divider"></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "deployments", title: "Types de déploiement"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "lifecycles", title: "Cycles de vie"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "document_types", title: "Types de documents"}) %></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Techniques <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "hosts", title: "Hôtes"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "techno_instances", title: "Instances"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "realisations", title: "Déploiements Applicatifs"}) %></li>
+                <li class="divider"></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "documents", title: "Documents"}) %></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Références <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "mainteners", title: "Mainteneurs"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "people", title: "Contacts"}) %></li>
               </ul>
             </li>
           </ul>

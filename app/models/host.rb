@@ -10,7 +10,7 @@ class Host < ActiveRecord::Base
   has_many :technologies,  -> { uniq }, through: :techno_instances
   has_and_belongs_to_many :contracts
   has_and_belongs_to_many :documents
-  
+
 
   def self.humanize_model(plural)
     if plural
@@ -22,7 +22,7 @@ class Host < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where(['name like ? or note like ?', "%#{search}%", "%#{search}%"])
+      where(['lower(name) like ? or lower(note) like ?', "%#{search}%", "%#{search}%"])
     else
       find(:all)
     end

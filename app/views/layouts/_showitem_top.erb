@@ -23,7 +23,7 @@
       <% end %>
     </div>
   </div>
-  <% if defined? item.url %>
+  <% if (defined? item.url) && (! item.url.nil?) %>
     <%= link_to item.url, class: "list-group-item", :target => "_blank" do %>
       <p class="list-group-item-text"><span class="badge">Ouvrir le lien externe</span></p>
     <% end %>

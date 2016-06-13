@@ -13,4 +13,12 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  def self.search(search)
+    if search
+      where(['lower(name) like ? or lower(note) like ?', "%#{search}%", "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+
 end

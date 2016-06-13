@@ -15,7 +15,7 @@ class Person < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where(['name like ? or note like ?', "%#{search}%", "%#{search}%"])
+      where(['lower(name) like ? or lower(note) like ?', "%#{search}%", "%#{search}%"])
     else
       find(:all)
     end

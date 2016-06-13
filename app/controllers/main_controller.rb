@@ -56,84 +56,89 @@ class MainController < ApplicationController
     @technologies_count = Technology.all.count
   end
 
-  def search_by_tag
-    @app_modules = AppModule.tagged_with(params[:search])
-    @app_roles = AppRole.tagged_with(params[:search])
-    @applications = Application.tagged_with(params[:search])
+  def search_by_tag(search_text)
+    @app_modules = AppModule.tagged_with(search_text)
+    @app_roles = AppRole.tagged_with(search_text)
+    @applications = Application.tagged_with(search_text)
     @deployments = Deployment.where(id: -1);
-    @entities = Entity.tagged_with(params[:search])
-    @hosts = Host.tagged_with(params[:search])
+    @entities = Entity.tagged_with(search_text)
+    @hosts = Host.tagged_with(search_text)
     @lifecycles = Lifecycle.where(id: -1);
-    @mainteners = Maintener.tagged_with(params[:search])
-    @people = Person.tagged_with(params[:search])
-    @realisations = Realisation.tagged_with(params[:search])
-    @techno_instances = TechnoInstance.tagged_with(params[:search])
+    @mainteners = Maintener.tagged_with(search_text)
+    @people = Person.tagged_with(search_text)
+    @realisations = Realisation.tagged_with(search_text)
+    @techno_instances = TechnoInstance.tagged_with(search_text)
+    @contracts = Contract.tagged_with(search_text)
     @technologies = Technology.where(id: -1)
     @documents = Document.where(id: -1)
     @document_types = DocumentType.where(id: -1)
     @tags = nil
   end
 
-  def search_by_name
+  def search_by_name(search_text)
     counter = 0
 
-    @app_modules = AppModule.search(params[:search])
+    @app_modules = AppModule.search(search_text)
     objet ||= @app_modules.first
     counter += @app_modules.count
 
-    @app_roles = AppRole.search(params[:search])
+    @app_roles = AppRole.search(search_text)
     objet ||= @app_roles.first
     counter += @app_roles.count
 
-    @applications = Application.search(params[:search])
+    @applications = Application.search(search_text)
     objet ||= @app_roles.first
     counter += @app_roles.count
 
-    @deployments = Deployment.search(params[:search])
+    @deployments = Deployment.search(search_text)
     objet ||= @deployments.first
     counter += @deployments.count
 
-    @entities = Entity.search(params[:search])
+    @entities = Entity.search(search_text)
     objet ||= @entities.first
     counter += @entities.count
 
-    @hosts = Host.search(params[:search])
+    @hosts = Host.search(search_text)
     objet ||= @hosts.first
     counter += @hosts.count
 
-    @lifecycles = Lifecycle.search(params[:search])
+    @lifecycles = Lifecycle.search(search_text)
     objet ||= @lifecycles.first
     counter += @lifecycles.count
 
-    @mainteners = Maintener.search(params[:search])
+    @mainteners = Maintener.search(search_text)
     objet ||= @mainteners.first
     counter += @mainteners.count
 
-    @people = Person.search(params[:search])
+    @people = Person.search(search_text)
     objet ||= @people.first
     counter += @people.count
 
-    @realisations = Realisation.search(params[:search])
+    @realisations = Realisation.search(search_text)
     objet ||= @realisations.first
     counter += @realisations.count
 
-    @techno_instances = TechnoInstance.search(params[:search])
+    @techno_instances = TechnoInstance.search(search_text)
     objet ||= @techno_instances.first
     counter += @techno_instances.count
 
-    @technologies = Technology.search(params[:search])
+    @technologies = Technology.search(search_text)
     objet ||= @technologies.first
     counter += @technologies.count
 
-    @documents = Document.search(params[:search])
+    @documents = Document.search(search_text)
     objet ||= @documents.first
     counter += @documents.count
 
-    @document_types = DocumentType.search(params[:search])
+    @document_types = DocumentType.search(search_text)
     objet ||= @document_types.first
     counter += @document_types.count
 
-    @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: params[:search]}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
+    @contracts = Contract.search(search_text)
+    objet ||= @contracts.first
+    counter += @contracts.count
+
+    @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: search_text}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
 
     if counter==1
       redirect_to controller: objet.class.name.tableize, action: :show, id: objet.id, search: params[:search]
@@ -143,9 +148,9 @@ class MainController < ApplicationController
   def search
     # DRY Needed !!!
     if params[:tag] == "true"
-      search_by_tag
+      search_by_tag params[:search].downcase
     else
-      search_by_name
+      search_by_name params[:search].downcase
     end
   end
 
