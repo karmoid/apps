@@ -23,6 +23,11 @@
       <% end %>
     </div>
   </div>
+  <% if defined? item.url %>
+    <%= link_to item.url, class: "list-group-item", :target => "_blank" do %>
+      <p class="list-group-item-text"><span class="badge">Ouvrir le lien externe</span></p>
+    <% end %>
+  <% end %>
   <% if ! ((! defined? item.tags) || item.tags.nil? || item.tags.empty?) %>
     <div class="well">
       <ul class="nav nav-pills">

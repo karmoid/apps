@@ -5,6 +5,8 @@ class TechnoInstance < ActiveRecord::Base
   belongs_to :host
   has_and_belongs_to_many :realisations
   has_and_belongs_to_many :documents
+  has_many :app_modules, -> { uniq }, through: :realisations
+  has_many :applications, -> { uniq }, through: :app_modules
 
 
 #  has_many :realisations

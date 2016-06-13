@@ -1,6 +1,8 @@
 <%= render(partial: "/layouts/showitem_top", locals: {parent: [@host, @technology], item: @techno_instance}) %>
 
   <%= render(partial: "/layouts/listitems_count", locals: {items: @realisations}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
+  <%= render(partial: "/layouts/listitems", locals: {items: @applications}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>
