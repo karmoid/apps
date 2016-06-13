@@ -3,7 +3,7 @@
     <p class="list-group-item-text">
       <%= element.note %>
       <% if (defined? puts_date) %>
-        <span class="label label-default"><%= humanize(DateTime.now.to_i-elment[puts_date].to_i) %></span>
+        <span class="label label-default"><%= humanize(DateTime.now.to_i-element[puts_date].to_i) %></span>
       <% end %>
     </p>
 <% end %>

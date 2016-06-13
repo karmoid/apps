@@ -8,7 +8,7 @@
         <div class="list-group">
           <% items.each do |r| %>
             <% locals = {element: r} %>
-            <% locals.merge(puts_date: puts_date) if (defined? puts_date) %>
+            <% locals.merge(puts_date: puts_date.to_sym) if (defined? puts_date) %>
             <% if (defined? r.url) && (! r.url.nil?) %>
               <div class="row">
                 <div class="col-lg-10">
