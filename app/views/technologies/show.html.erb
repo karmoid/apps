@@ -1,7 +1,6 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @technology}) %>
-
-  <%= render(partial: "/layouts/listitems", locals: {items: @techno_instances}) %>
-  <%= render(partial: "/layouts/listitems_count", locals: {items: @realisations}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @techno_instances, icon: "cog"}) %>
+<%= render(partial: "/layouts/listitems_count", locals: {items: @realisations, icon: "th-list"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement", icon: "screenshot"}) %>

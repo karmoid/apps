@@ -1,8 +1,7 @@
 <%= render(partial: "/layouts/showitem_top", locals: {parent: @lifecycle, item: @realisation}) %>
-
-  <%= render(partial: "/layouts/listitems_count", locals: {items: @technologies}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @applications}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>
+<%= render(partial: "/layouts/listitems_count", locals: {items: @technologies, icon: "hdd"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @applications, icon: "modal-window"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement", icon: "screenshot"}) %>

@@ -1,5 +1,4 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @deployment}) %>
-
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
-  <%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement", icon: "screenshot"}) %>

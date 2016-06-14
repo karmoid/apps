@@ -1,9 +1,9 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @host, parent: @host.deployment}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @contracts}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @techno_instances}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @technologies}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @lifecycles}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @applications}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @realisations}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @documents}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @contracts, icon: "certificate"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @techno_instances, icon: "cog"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @technologies, icon: "hdd"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @lifecycles, icon: "refresh"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @applications, icon: "modal-window"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @realisations, icon: "th-list"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @documents, icon: "bookmark"}) %>

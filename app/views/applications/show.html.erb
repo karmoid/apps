@@ -1,9 +1,8 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @application}) %>
-
-<%= render(partial: "/layouts/listitems", locals: {items: @app_modules}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @app_roles}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @mainteners, toptitle: "Contacts #{@maintener.name unless @maintener.nil?}"}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production"}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production"}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement"}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @documents}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_roles, icon: "sunglasses"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @mainteners, toptitle: "Contacts #{@maintener.name unless @maintener.nil?}", icon: "user"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hostspprod, toptitle: "Pré-production", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosstdev, toptitle: "Développement", icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @documents, icon: "bookmark"}) %>

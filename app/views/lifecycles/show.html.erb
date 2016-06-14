@@ -1,4 +1,3 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @lifecycle}) %>
-
-<%= render(partial: "/layouts/listitems", locals: {items: @realisations}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @hosts}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @realisations, icon: "th-list"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosts, icon: "screenshot"}) %>

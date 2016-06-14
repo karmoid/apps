@@ -3,17 +3,24 @@
     <div class="bs-component">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><span class="badge"></span> <%= (defined? toptitle) ? toptitle : items.first.class.humanize_model(true) %> <span class="badge"><%= items.count %></span></h3>
+          <h3 class="panel-title">
+            <% if (defined? icon) %>
+              <span class='<%= "glyphicon glyphicon-#{icon}" %>'></span>&nbsp;
+            <% end %>
+            <span class="badge"></span>&nbsp;
+            <%= (defined? toptitle) ? toptitle : items.first.class.humanize_model(true) %>&nbsp;
+            <span class="badge"><%= items.count %></span>
+          </h3>
         </div>
         <div class="list-group">
           <% items.each do |r| %>
-            <% locals = {element: r} %>
-            <% locals.merge(puts_date: puts_date.to_sym) if (defined? puts_date) %>
+            <% my_locals = {element: r} %>
+            <% my_locals.merge!(puts_date: puts_date.to_sym) if (defined? puts_date) %>
             <% if (defined? r.url) && (! r.url.nil?) %>
               <div class="row">
                 <div class="col-lg-10">
                   <div class="bs-component">
-                    <%= render(partial: "/layouts/itemsimple", locals: locals) %>
+                    <%= render(partial: "/layouts/itemsimple", locals: my_locals) %>
                   </div>
                 </div>
                 <div class="col-lg-1">
@@ -27,7 +34,7 @@
                 </div>
               </div>
             <% else %>
-              <%= render(partial: "/layouts/itemsimple", locals: locals) %>
+              <%= render(partial: "/layouts/itemsimple", locals: my_locals) %>
             <% end %>
           <% end %>
         </div>

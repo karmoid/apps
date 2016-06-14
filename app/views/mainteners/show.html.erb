@@ -1,4 +1,3 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @maintener}) %>
-
-<%= render(partial: "/layouts/listitems", locals: {items: @people}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @contracts}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @people, icon: "user"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @contracts, icon: "certificate"}) %>
