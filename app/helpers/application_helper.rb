@@ -10,4 +10,16 @@ module ApplicationHelper
     }.join(' ')
   end
 
+  def self.concatener_dataset(dataset1, dataset2)
+    if dataset2.nil?
+      dataset1
+    else
+      dataset1+dataset2
+    end
+  end
+
+  def concatener_dataset (dataset1, dataset2)
+    ApplicationHelper.concatener_dataset(dataset1, dataset2)
+  end
+
 end

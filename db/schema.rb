@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612190946) do
+ActiveRecord::Schema.define(version: 20160618134602) do
 
   create_table "app_modules", force: true do |t|
     t.string   "name"
@@ -160,9 +160,11 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "deployment_id"
+    t.integer  "host_model_id"
   end
 
   add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id"
+  add_index "hosts", ["host_model_id"], name: "index_hosts_on_host_model_id"
 
   create_table "lifecycles", force: true do |t|
     t.string   "name"
