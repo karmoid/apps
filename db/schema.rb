@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160612190946) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "app_modules", force: true do |t|
     t.string   "name"
     t.text     "note"
@@ -21,39 +24,39 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "updated_at"
   end
 
-  add_index "app_modules", ["application_id"], name: "index_app_modules_on_application_id"
+  add_index "app_modules", ["application_id"], name: "index_app_modules_on_application_id", using: :btree
 
   create_table "app_modules_contracts", id: false, force: true do |t|
     t.integer "app_module_id"
     t.integer "contract_id"
   end
 
-  add_index "app_modules_contracts", ["app_module_id"], name: "index_app_modules_contracts_on_app_module_id"
-  add_index "app_modules_contracts", ["contract_id"], name: "index_app_modules_contracts_on_contract_id"
+  add_index "app_modules_contracts", ["app_module_id"], name: "index_app_modules_contracts_on_app_module_id", using: :btree
+  add_index "app_modules_contracts", ["contract_id"], name: "index_app_modules_contracts_on_contract_id", using: :btree
 
   create_table "app_modules_documents", id: false, force: true do |t|
     t.integer "app_module_id"
     t.integer "document_id"
   end
 
-  add_index "app_modules_documents", ["app_module_id"], name: "index_app_modules_documents_on_app_module_id"
-  add_index "app_modules_documents", ["document_id"], name: "index_app_modules_documents_on_document_id"
+  add_index "app_modules_documents", ["app_module_id"], name: "index_app_modules_documents_on_app_module_id", using: :btree
+  add_index "app_modules_documents", ["document_id"], name: "index_app_modules_documents_on_document_id", using: :btree
 
   create_table "app_modules_powers", id: false, force: true do |t|
     t.integer "app_module_id"
     t.integer "power_id"
   end
 
-  add_index "app_modules_powers", ["app_module_id"], name: "index_app_modules_powers_on_app_module_id"
-  add_index "app_modules_powers", ["power_id"], name: "index_app_modules_powers_on_power_id"
+  add_index "app_modules_powers", ["app_module_id"], name: "index_app_modules_powers_on_app_module_id", using: :btree
+  add_index "app_modules_powers", ["power_id"], name: "index_app_modules_powers_on_power_id", using: :btree
 
   create_table "app_modules_realisations", id: false, force: true do |t|
     t.integer "realisation_id"
     t.integer "app_module_id"
   end
 
-  add_index "app_modules_realisations", ["app_module_id"], name: "index_app_modules_realisations_on_app_module_id"
-  add_index "app_modules_realisations", ["realisation_id"], name: "index_app_modules_realisations_on_realisation_id"
+  add_index "app_modules_realisations", ["app_module_id"], name: "index_app_modules_realisations_on_app_module_id", using: :btree
+  add_index "app_modules_realisations", ["realisation_id"], name: "index_app_modules_realisations_on_realisation_id", using: :btree
 
   create_table "app_roles", force: true do |t|
     t.string   "name"
@@ -70,15 +73,15 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer  "maintener_id"
   end
 
-  add_index "applications", ["maintener_id"], name: "index_applications_on_maintener_id"
+  add_index "applications", ["maintener_id"], name: "index_applications_on_maintener_id", using: :btree
 
   create_table "applications_documents", id: false, force: true do |t|
     t.integer "application_id"
     t.integer "document_id"
   end
 
-  add_index "applications_documents", ["application_id"], name: "index_applications_documents_on_application_id"
-  add_index "applications_documents", ["document_id"], name: "index_applications_documents_on_document_id"
+  add_index "applications_documents", ["application_id"], name: "index_applications_documents_on_application_id", using: :btree
+  add_index "applications_documents", ["document_id"], name: "index_applications_documents_on_document_id", using: :btree
 
   create_table "contracts", force: true do |t|
     t.string   "name"
@@ -88,15 +91,15 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "updated_at"
   end
 
-  add_index "contracts", ["maintener_id"], name: "index_contracts_on_maintener_id"
+  add_index "contracts", ["maintener_id"], name: "index_contracts_on_maintener_id", using: :btree
 
   create_table "contracts_hosts", id: false, force: true do |t|
     t.integer "host_id"
     t.integer "contract_id"
   end
 
-  add_index "contracts_hosts", ["contract_id"], name: "index_contracts_hosts_on_contract_id"
-  add_index "contracts_hosts", ["host_id"], name: "index_contracts_hosts_on_host_id"
+  add_index "contracts_hosts", ["contract_id"], name: "index_contracts_hosts_on_contract_id", using: :btree
+  add_index "contracts_hosts", ["host_id"], name: "index_contracts_hosts_on_host_id", using: :btree
 
   create_table "deployments", force: true do |t|
     t.string   "name"
@@ -121,23 +124,23 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "updated_at"
   end
 
-  add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id"
+  add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id", using: :btree
 
   create_table "documents_hosts", id: false, force: true do |t|
     t.integer "host_id"
     t.integer "document_id"
   end
 
-  add_index "documents_hosts", ["document_id"], name: "index_documents_hosts_on_document_id"
-  add_index "documents_hosts", ["host_id"], name: "index_documents_hosts_on_host_id"
+  add_index "documents_hosts", ["document_id"], name: "index_documents_hosts_on_document_id", using: :btree
+  add_index "documents_hosts", ["host_id"], name: "index_documents_hosts_on_host_id", using: :btree
 
   create_table "documents_techno_instances", id: false, force: true do |t|
     t.integer "techno_instance_id"
     t.integer "document_id"
   end
 
-  add_index "documents_techno_instances", ["document_id"], name: "index_documents_techno_instances_on_document_id"
-  add_index "documents_techno_instances", ["techno_instance_id"], name: "index_documents_techno_instances_on_techno_instance_id"
+  add_index "documents_techno_instances", ["document_id"], name: "index_documents_techno_instances_on_document_id", using: :btree
+  add_index "documents_techno_instances", ["techno_instance_id"], name: "index_documents_techno_instances_on_techno_instance_id", using: :btree
 
   create_table "entities", force: true do |t|
     t.string   "name"
@@ -151,8 +154,8 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer "entity_id"
   end
 
-  add_index "entities_people", ["entity_id"], name: "index_entities_people_on_entity_id"
-  add_index "entities_people", ["person_id"], name: "index_entities_people_on_person_id"
+  add_index "entities_people", ["entity_id"], name: "index_entities_people_on_entity_id", using: :btree
+  add_index "entities_people", ["person_id"], name: "index_entities_people_on_person_id", using: :btree
 
   create_table "hosts", force: true do |t|
     t.string   "name"
@@ -162,7 +165,7 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer  "deployment_id"
   end
 
-  add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id"
+  add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id", using: :btree
 
   create_table "lifecycles", force: true do |t|
     t.string   "name"
@@ -183,8 +186,8 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer "maintener_id"
   end
 
-  add_index "mainteners_people", ["maintener_id"], name: "index_mainteners_people_on_maintener_id"
-  add_index "mainteners_people", ["person_id"], name: "index_mainteners_people_on_person_id"
+  add_index "mainteners_people", ["maintener_id"], name: "index_mainteners_people_on_maintener_id", using: :btree
+  add_index "mainteners_people", ["person_id"], name: "index_mainteners_people_on_person_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "name"
@@ -201,8 +204,8 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "updated_at"
   end
 
-  add_index "powers", ["app_role_id"], name: "index_powers_on_app_role_id"
-  add_index "powers", ["person_id"], name: "index_powers_on_person_id"
+  add_index "powers", ["app_role_id"], name: "index_powers_on_app_role_id", using: :btree
+  add_index "powers", ["person_id"], name: "index_powers_on_person_id", using: :btree
 
   create_table "realisations", force: true do |t|
     t.text     "note"
@@ -212,15 +215,15 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer  "lifecycle_id"
   end
 
-  add_index "realisations", ["lifecycle_id"], name: "index_realisations_on_lifecycle_id"
+  add_index "realisations", ["lifecycle_id"], name: "index_realisations_on_lifecycle_id", using: :btree
 
   create_table "realisations_techno_instances", id: false, force: true do |t|
     t.integer "realisation_id"
     t.integer "techno_instance_id"
   end
 
-  add_index "realisations_techno_instances", ["realisation_id"], name: "index_realisations_techno_instances_on_realisation_id"
-  add_index "realisations_techno_instances", ["techno_instance_id"], name: "index_realisations_techno_instances_on_techno_instance_id"
+  add_index "realisations_techno_instances", ["realisation_id"], name: "index_realisations_techno_instances_on_realisation_id", using: :btree
+  add_index "realisations_techno_instances", ["techno_instance_id"], name: "index_realisations_techno_instances_on_techno_instance_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -232,15 +235,15 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: true do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "techno_instances", force: true do |t|
     t.string   "name"
@@ -251,8 +254,8 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.integer  "host_id"
   end
 
-  add_index "techno_instances", ["host_id"], name: "index_techno_instances_on_host_id"
-  add_index "techno_instances", ["technology_id"], name: "index_techno_instances_on_technology_id"
+  add_index "techno_instances", ["host_id"], name: "index_techno_instances_on_host_id", using: :btree
+  add_index "techno_instances", ["technology_id"], name: "index_techno_instances_on_technology_id", using: :btree
 
   create_table "technologies", force: true do |t|
     t.string   "name"
