@@ -1,4 +1,4 @@
-<%= render(partial: "/layouts/showitem_top", locals: {item: @host, parent: @host.deployment}) %>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @host, parent: [@host.deployment,@host_model]}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @contracts, icon: "certificate"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @techno_instances, icon: "cog"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @technologies, icon: "hdd"}) %>
@@ -7,3 +7,4 @@
 <%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @realisations, icon: "th-list"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @documents, icon: "bookmark"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @clones, icon: "screenshot", toptitle: "Hôtes images"}) %>

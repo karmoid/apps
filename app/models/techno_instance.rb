@@ -1,5 +1,6 @@
 class TechnoInstance < ActiveRecord::Base
   acts_as_taggable # Alias for acts_as_taggable_on :tags
+  # validates_presence_of :name
 
   belongs_to :technology
   belongs_to :host
@@ -30,12 +31,35 @@ class TechnoInstance < ActiveRecord::Base
   end
 
   rails_admin do
+    configure :name do
+      label 'Nom : '
+    end
+    configure :note do
+      label 'Note/Description : '
+    end
+    configure :host do
+      label 'Hôte : '
+    end
+    configure :technology do
+      label 'Type de service : '
+    end
+    configure :tag_list do
+      label 'Mot clés : '
+    end
+    configure :realisations do
+      label 'Déploiement de services : '
+    end
+    configure :documents do
+      label 'Ressources documentaires : '
+    end
+
     list do
       field :name
+      field :note
       field :technology
       field :host
-      field :note
       field :realisations
+      filed :documents
     end
   end
 

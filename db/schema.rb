@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160612190946) do
+ActiveRecord::Schema.define(version: 20160618134602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,9 +163,15 @@ ActiveRecord::Schema.define(version: 20160612190946) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "deployment_id"
+    t.integer  "host_model_id"
   end
 
+<<<<<<< HEAD
   add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id", using: :btree
+=======
+  add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id"
+  add_index "hosts", ["host_model_id"], name: "index_hosts_on_host_model_id"
+>>>>>>> a1de61a064549c63553efb87e4a054e1568af348
 
   create_table "lifecycles", force: true do |t|
     t.string   "name"
