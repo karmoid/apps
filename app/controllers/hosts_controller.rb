@@ -5,6 +5,7 @@ class HostsController < ApplicationController
     @clones = @host.clones
 
     @deployment = @host.deployment
+    @discovery_attributes = @host.discovery_attributes
 
     @techno_instances = ApplicationHelper::concatener_dataset(@host.techno_instances, @host_model.nil? ? nil : @host_model.techno_instances)
     @technologies = ApplicationHelper::concatener_dataset(@host.technologies, @host_model.nil? ? nil : @host_model.technologies)

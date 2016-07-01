@@ -1,0 +1,16 @@
+<% buffer = ""
+   nbline = element[:data][:attributes].count
+   element[:data][:attributes].each do |attrib|
+     addon_class = attrib[:changed] ? " class='warning'" : ""
+     case attrib[:enum_attr]
+       when :hosttype
+         kind = attrib[:value]
+         buffer = "<tr#{addon_class}><td rowspan='"+(nbline).to_s+"'>#{kind}</td><td rowspan='"+(nbline).to_s+"'>#{element[:data][:host]}</td><td rowspan='"+(nbline).to_s+"'></td><td>#{attrib[:lib]}</td><td>#{attrib[:value]}</td><td>-</td></tr>" + buffer
+       else
+         buffer = buffer + "<tr#{addon_class}><td>#{attrib[:lib]}</td><td>#{attrib[:value]}</td><td>#{attrib[:previous].nil? ? '-' : attrib[:previous]}</td></tr>"
+         if attrib[:details].count>0
+           buffer = buffer + "<tr#{addon_class}><td colspan='3'>"+render(partial: attrib[:enum_attr].to_s, locals: {element: attrib[:details]})+"</td></tr>"
+         end
+     end
+   end %>
+ <%= raw buffer %>

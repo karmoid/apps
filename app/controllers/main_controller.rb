@@ -69,9 +69,13 @@ class MainController < ApplicationController
     @realisations = Realisation.tagged_with(search_text)
     @techno_instances = TechnoInstance.tagged_with(search_text)
     @contracts = Contract.tagged_with(search_text)
+    @attribute_types = AttributeType.tagged_with(search_text)
+    @contracts = Contract.tagged_with(search_text)
+    @discovery_tools = DiscoveryTool.tagged_with(search_text)
     @technologies = Technology.where(id: -1)
     @documents = Document.where(id: -1)
     @document_types = DocumentType.where(id: -1)
+
     @tags = nil
   end
 
@@ -137,6 +141,26 @@ class MainController < ApplicationController
     @contracts = Contract.search(search_text)
     objet ||= @contracts.first
     counter += @contracts.count
+
+    @attribute_types = AttributeType.search(search_text)
+    objet ||= @attribute_types.first
+    counter += @attribute_types.count
+
+    @attribute_types = AttributeType.search(search_text)
+    objet ||= @attribute_types.first
+    counter += @attribute_types.count
+
+    @discovery_attributes = DiscoveryAttribute.search(search_text)
+    objet ||= @discovery_attributes.first
+    counter += @discovery_attributes.count
+
+    @discovery_tools = DiscoveryTool.search(search_text)
+    objet ||= @discovery_tools.first
+    counter += @discovery_tools.count
+
+    @discoveries = Discovery.search(search_text)
+    objet ||= @discoveries.first
+    counter += @discoveries.count
 
     @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: search_text}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
 

@@ -12,7 +12,16 @@
       <% end %>
       <a href="#" class="list-group-item">
         <h3 class="list-group-item-heading"><%= item.name.upcase %></h3>
-        <p class="list-group-item-text"><%= item.note %></p>
+        <% if defined? item.note %>
+          <p class="list-group-item-text"><%= item.note %></p>
+        <% else %>
+          <p class="list-group-item-text"><%= case ApplicationHelper::dbtype_to_enum(item.attribute_type.name)
+          when :mem
+            number_to_human_size(item.value.to_i * 1024 * 1024)
+          else
+            item.value
+          end %></p>
+        <% end %>
       </a>
       <%= link_to rails_admin.edit_path(model_name: item.class.name.tableize.singularize, id: item.id), class: "list-group-item" do %>
         <p class="list-group-item-text">

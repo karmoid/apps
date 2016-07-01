@@ -1,7 +1,16 @@
 <%= link_to element, :search => params[:search], class: "list-group-item" do %>
     <h5 class="list-group-item-heading"><%= element.name.upcase %>&nbsp;</h5>
     <p class="list-group-item-text">
-      <%= element.note %>
+      <% if defined? element.note %>
+        <%= element.note %>
+      <% else %>
+        <%= case ApplicationHelper::dbtype_to_enum(element.attribute_type.name)
+        when :mem
+          number_to_human_size(element.value.to_i * 1024 * 1024)
+        else
+          element.value
+        end %>
+      <% end %>
       <% if (defined? puts_date) %>
         <span class="label label-default"><%= humanize(DateTime.now.to_i-element[puts_date].to_i) %></span>
       <% end %>

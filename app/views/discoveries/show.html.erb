@@ -1,0 +1,62 @@
+<%= render(partial: "/layouts/showitem_top", locals: {item: @discovery, parent: @discovery_tool}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @discovery_items}) %>
+<%= form_tag( {action: "search", method: "post"}, class: "form-horizontal" ) do %>
+  <fieldset>
+    <legend>Lancer une découverte</legend>
+    <div class="form-group">
+      <label for="iName" class="col-lg-2 control-label">Compte utilisateur</label>
+      <div class="col-lg-10">
+        <%= text_field_tag :iName, nil, class:'form-control', placeholder: @discovery.credential %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="iPassword" class="col-lg-2 control-label">Mot de passe</label>
+      <div class="col-lg-10">
+        <%= password_field_tag :iPassword, nil, class:'form-control' %>
+      </div>
+      <label for="isaveresult" class="col-lg-2 control-label">Mise à jour</label>
+      <div class="col-lg-10">
+        <%= check_box_tag :iSaveresult, 'yes', false %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <%= button_tag(:class => "btn btn-default") do %>
+           <span class='glyphicon glyphicon-search'>&nbsp;Découvrir</span>
+        <% end %>
+        <%= button_tag(name: "export", :class => "btn btn-default") do %>
+           <span class='glyphicon glyphicon-export'>&nbsp;Exporter</span>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
+<div class="row">
+  <div class="col-lg-12">
+      <div class="bs-component">
+        <table class="table table-striped table-hover ">
+          <thead>
+            <tr>
+              <th><%= Time.now-params["secs"].to_i %></th>
+              <th>Attribut</th>
+              <th>Valeurs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% current_host_id = -1 %>
+            <% @discovery_attributes.each do |da| %>
+              <% if da.updated_at >= Time.now-params["secs"].to_i %>
+                <tr><td><%= da.host.name if current_host_id==-1 || current_host_id!=da.host.id %></td>
+                <% current_host_id = da.host.id %>
+                <td><%= da.attribute_type.name %></td>
+                <td><%= da.value %></td></tr>
+              <% else %>
+                  <tr><td colspan="3"><%= "mis à jour le #{da.updated_at} #{da.name} #{da.value}" %></td></tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div><!-- /example -->
+    </div>
+  </div>
+</div>

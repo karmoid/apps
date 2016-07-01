@@ -59,7 +59,7 @@ class TechnoInstance < ActiveRecord::Base
       field :technology
       field :host
       field :realisations
-      filed :documents
+      field :documents
     end
   end
 

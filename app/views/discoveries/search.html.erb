@@ -1,0 +1,21 @@
+<h1>Découvertes</h1>
+<%= render(partial: "/layouts/showitem_top", locals: {item: @discovery, parent: @discovery_tool}) %>
+<%= params.inspect %>
+<div class="col-lg-7">
+  <div style="margin-bottom: 15px;">
+  <div class="btn-toolbar bs-component" style="margin: 0;">
+    <div class="btn-group">
+      <%= link_to "Export", exportfull_discovery_path(@discovery.id), method: :post, datacompared: @datacompared, class: "btn btn-default" %>
+      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Changements</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%= render(partial: "listitems", locals: {items: @datacompared, toptitle: "Eléments collectés"}) %>

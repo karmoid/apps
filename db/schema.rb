@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618134602) do
+ActiveRecord::Schema.define(version: 20160630192405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,13 @@ ActiveRecord::Schema.define(version: 20160618134602) do
   add_index "applications_documents", ["application_id"], name: "index_applications_documents_on_application_id", using: :btree
   add_index "applications_documents", ["document_id"], name: "index_applications_documents_on_document_id", using: :btree
 
+  create_table "attribute_types", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contracts", force: true do |t|
     t.string   "name"
     t.text     "note"
@@ -102,6 +109,55 @@ ActiveRecord::Schema.define(version: 20160618134602) do
   add_index "contracts_hosts", ["host_id"], name: "index_contracts_hosts_on_host_id", using: :btree
 
   create_table "deployments", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "discoveries", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.string   "target"
+    t.integer  "discovery_tool_id"
+    t.string   "credential"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discoveries", ["discovery_tool_id"], name: "index_discoveries_on_discovery_tool_id", using: :btree
+
+  create_table "discovery_attributes", force: true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.integer  "attribute_type_id"
+    t.integer  "discovery_id"
+    t.integer  "host_id"
+    t.integer  "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "detail"
+  end
+
+  add_index "discovery_attributes", ["attribute_type_id"], name: "index_discovery_attributes_on_attribute_type_id", using: :btree
+  add_index "discovery_attributes", ["discovery_id"], name: "index_discovery_attributes_on_discovery_id", using: :btree
+  add_index "discovery_attributes", ["host_id"], name: "index_discovery_attributes_on_host_id", using: :btree
+
+  create_table "discovery_sessions", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.datetime "from"
+    t.datetime "to"
+    t.integer  "newhost"
+    t.integer  "attribute_changes"
+    t.integer  "discovery_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "discovery_sessions", ["discovery_id"], name: "index_discovery_sessions_on_discovery_id", using: :btree
+
+  create_table "discovery_tools", force: true do |t|
     t.string   "name"
     t.text     "note"
     t.datetime "created_at"
@@ -166,12 +222,8 @@ ActiveRecord::Schema.define(version: 20160618134602) do
     t.integer  "host_model_id"
   end
 
-<<<<<<< HEAD
   add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id", using: :btree
-=======
-  add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id"
-  add_index "hosts", ["host_model_id"], name: "index_hosts_on_host_model_id"
->>>>>>> a1de61a064549c63553efb87e4a054e1568af348
+  add_index "hosts", ["host_model_id"], name: "index_hosts_on_host_model_id", using: :btree
 
   create_table "lifecycles", force: true do |t|
     t.string   "name"

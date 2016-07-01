@@ -1,0 +1,2 @@
+<%= render(partial: "/layouts/showitem_top", locals: {item: @discovery_attribute, parent: [@discovery, @host, @attribute_type]}) %>
+<%= render(partial: "/discoveries/#{@attr_type}", locals: {element: @details}) unless @details.empty? %>

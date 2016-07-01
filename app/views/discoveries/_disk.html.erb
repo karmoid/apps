@@ -1,0 +1,7 @@
+<% if (defined? element) && (! element.nil?) && (element.count > 0) %>
+<ul>
+  <% element.each do |item| %>
+    <li><%= item[:name] %>:&nbsp;<%= number_to_human_size(item[:value].to_i * 1024 * 1024) %></li>
+  <% end %>
+</ul>
+<% end %>

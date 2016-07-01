@@ -15,27 +15,7 @@
         <div class="list-group">
           <% items.each do |r| %>
             <% my_locals = {element: r} %>
-            <% my_locals.merge!(puts_date: puts_date.to_sym) if (defined? puts_date) %>
-            <% if (defined? r.url) && (! r.url.nil?) %>
-              <div class="row">
-                <div class="col-lg-10">
-                  <div class="bs-component">
-                    <%= render(partial: "/layouts/itemsimple", locals: my_locals) %>
-                  </div>
-                </div>
-                <div class="col-lg-1">
-                  <div class="bs-component">
-                    <div class="btn-group">
-                      <%= link_to r.url, class: "list-group-item", :target => "_blank" do %>
-                        <h5 class="list-group-item-text"><span class="glyphicon glyphicon-share"></span></h5>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% else %>
-              <%= render(partial: "/layouts/itemsimple", locals: my_locals) %>
-            <% end %>
+            <%= render(partial: "/layouts/itemsimple", locals: my_locals) %>
           <% end %>
         </div>
       </div>

@@ -1,0 +1,15 @@
+<% if (defined? element) && (! element.nil?) && (element.count > 0) %>
+<ul>
+  <% element.each do |item| %>
+    <li>Réseau: <%= item[:network] %>&nbsp;[<%= item[:mac] %>] <%= item[:connected] ? "CONNECTE" : "DECONNECTE" %>
+      <% unless item[:ipaddresses].nil? %>
+        <ul>
+          <% item[:ipaddresses].each do |ipa| %>
+          <li><%= ipa[:value] %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>

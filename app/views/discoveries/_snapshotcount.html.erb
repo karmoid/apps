@@ -1,0 +1,13 @@
+<% if (defined? element) && (! element.nil?) && (element.count > 0) %>
+<ul>
+  <% element.each do |item| %>
+    <li>
+      <h5><%= item[:name]%></h5>
+      <small><%= item[:created_at] %></small>
+      <% if !item[:value].nil? || item[:value]!="" %>
+        <p><%= item[:value] %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>

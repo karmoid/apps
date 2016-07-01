@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+
+  resources :discovery_sessions, only: [:index, :show]
+
+  resources :discoveries, only: [:index, :show] do
+    member do
+      post "search"
+    end
+    member do
+      post "exportfull"
+    end
+  end
+
+  resources :discovery_attributes, only: [:index, :show]
+
+  resources :attribute_types, only: [:index, :show]
+
+  resources :discovery_tools, only: [:index, :show]
+
   resources :documents, only: [:index, :show]
 
   resources :document_types, only: [:index, :show]

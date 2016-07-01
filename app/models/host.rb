@@ -4,6 +4,7 @@ class Host < ActiveRecord::Base
   # validates_presence_of :name
 
   has_many :techno_instances
+  has_many :discovery_attributes
   belongs_to :deployment
   scope :abstract, -> {includes(:deployment).where(deployments: {name: "abstract"})}
   belongs_to :host_model, -> { abstract },

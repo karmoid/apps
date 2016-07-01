@@ -24,6 +24,10 @@
       <%= render(partial: "searchresult", locals: {result: @techno_instances, element: "techno_instances", title: "Instances Techniques"}) %>
       <%= render(partial: "searchresult", locals: {result: @technologies, element: "technologies", title: "Technologies"}) %>
       <%= render(partial: "searchresult", locals: {result: @contracts, element: "contracts", title: "Contrats"}) %>
+      <%= render(partial: "searchresult", locals: {result: @attribute_types, element: "attribute_types", title: "Types d'attribut"}) %>
+      <%= render(partial: "searchresult", locals: {result: @discoveries, element: "discoveries", title: "Découvertes"}) %>
+      <%= render(partial: "searchresult", locals: {result: @discovery_tools, element: "discovery_tools", title: "Types de découvertes"}) %>
+      <%= render(partial: "searchresult", locals: {result: @discovery_attributes, element: "discovery_attributes", title: "Attributs découverts"}) %>
       <%= render(partial: "searchresult", locals: {tags: @tags}) %>
     </tbody>
   </table>

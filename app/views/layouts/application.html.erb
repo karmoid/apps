@@ -15,7 +15,8 @@
     <![endif]-->
   </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <!-- navbar-fixed-top -->
+    <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -52,6 +53,8 @@
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "realisations", title: "Déploiements Applicatifs"}) %></li>
                 <li class="divider"></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "documents", title: "Documents"}) %></li>
+                <li class="divider"></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "discoveries", title: "Découvertes"}) %></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -60,6 +63,8 @@
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "mainteners", title: "Mainteneurs"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "entities", title: "Entités"}) %></li>
                 <li><%= render(partial: "/layouts/menuitem", locals: {element: "people", title: "Contacts"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "discovery_tools", title: "Outils de découverte"}) %></li>
+                <li><%= render(partial: "/layouts/menuitem", locals: {element: "attribute_types", title: "Types d'attribut"}) %></li>
               </ul>
             </li>
           </ul>

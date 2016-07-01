@@ -1,0 +1,19 @@
+<% if (defined? items) && (! items.nil?) && (items.count > 0) %>
+  <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Nom</th>
+        <th>Note</th>
+        <th>Attribut</th>
+        <th>Valeur</th>
+        <th>Ancienne</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.each do |r| %>
+        <%= render(partial: "itemsimple", locals: {element: r}) %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

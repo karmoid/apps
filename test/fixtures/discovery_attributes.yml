@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  value: MyString
+  attribute_type_id: 
+  discovery_id: 
+  host_id: 
+  version: 1
+
+two:
+  name: MyString
+  value: MyString
+  attribute_type_id: 
+  discovery_id: 
+  host_id: 
+  version: 1
