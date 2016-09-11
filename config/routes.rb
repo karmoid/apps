@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       post "exportfull"
     end
     resources :attribute_types, only: [:index, :show] do
+      member do
+        post "filter"
+      end
     end
   end
 
