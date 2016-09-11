@@ -9,6 +9,18 @@ default: &default
   pool: 5
   timeout: 5000
 
+devel:
+  adapter: postgresql
+  encoding: unicode
+  timeout: 15000
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  host: sfrdtcsupport02.emea.brinksgbl.com
+  database: apps_production
+  user: appsuser
+  password: <%= ENV['TT_DATABASE_PASSWORD'] %>
+
 development:
   adapter: postgresql
   encoding: unicode

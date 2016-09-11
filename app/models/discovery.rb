@@ -30,6 +30,105 @@ class Discovery < ActiveRecord::Base
     return retour
   end
 
+  def self.build_json(discovery_id)
+    out_data = []
+    hostid = -1
+    discovery_attributes = DiscoveryAttribute.find_by_sql(
+        "select * from discovery_attributes where
+        discovery_attributes.discovery_id=#{discovery_id} and
+        (discovery_attributes.host_id,
+        discovery_attributes.attribute_type_id, discovery_attributes.discovery_id,
+        discovery_attributes.version) in
+        (
+        select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version) as high_version
+        from discovery_attributes
+        where discovery_attributes.name in ('hostesx','ipaddress','fullname','folder')
+        group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
+        union
+        select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version)-1 as high_version
+        from discovery_attributes
+        where discovery_attributes.name in ('hostesx','ipaddress','fullname','folder')
+        group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
+        )
+        order by discovery_id,host_id,name,version")
+
+#        where discovery_attributes.name in ('hostesx','ipaddress','hostname','vdisk')
+                                              # where(discovery_attributes: {discovery_id: discovery_id}).
+                                              # where("discovery_attributes.name in ('hostesx','ipaddress','hostname')").
+                                              # group([:host_id, :name]).
+                                              # having("version=max(version) or version=max(version)-1").
+                                              # order(:host_id, :name, :version)
+#  Host.joins(discovery_attributes: :discovery).
+#       where(discoveries: {id: 1},discovery_attributes: {name: ["folder","hostesx","ipaddress","fullname"]}).
+#       group("hosts.id,discovery_attributes.name,discovery_attributes.version").
+#       having("version>=max(version-1)").
+#       order("hosts.name,discovery_attributes.name,discovery_attributes.version desc")
+
+    current_item = nil
+    attrib_id = nil
+    attrib = nil
+    discovery_attributes.each do |da|
+      # puts "found #{da.value} [#{da.name}]"
+      if hostid != da.host.id
+        puts "new host #{da.host_id} name: #{da.host.name}"
+        current_item = {newhost: false,
+                        note: da.host.note,
+                        host_id: da.host.id,
+                        fullname: "",
+                        hostesx: "",
+                        folder: "",
+                        data: {
+                          host: da.host.name,
+                          attributes: []}
+                        }
+        out_data << current_item
+        hostid = da.host.id
+        attrib_id = nil
+      end
+      if da.version>1
+        puts "attrib_id: #{attrib_id} da.name: #{da.name} value:#{da.value} vers:#{da.version}"
+        puts "attrib_id nil" if attrib_id.nil?
+        puts da.name==attrib_id
+      end
+      if (da.name==attrib_id)
+        attrib_size = current_item[:data][:attributes].size
+        if da.version>1
+          puts "changes on #{da.value} [#{da.name}] attributes Size: #{attrib_size} "
+          puts "#{current_item[:data][:attributes][attrib_size-1].inspect}"
+        end
+        current_item[:data][:attributes][attrib_size-1][:value] = da.value
+        current_item[:data][:attributes][attrib_size-1][:detail] = JSON.parse(da.detail)
+        current_item[:data][:attributes][attrib_size-1][:changed] = true
+        #attrib[:value] = da.value
+        #attrib[:details] = da.details
+        #attrib[:changed] = true
+        if da.version>1
+          puts "changes on #{da.value} [#{da.name}] #{current_item[:data][:attributes][attrib_size-1]}"
+        end
+        # current_item[:data][:attributes].last[:value] = da.value
+        # current_item[:data][:attributes].last[:details] = da.details
+        # current_item[:data][:attributes].last[:changed] = true
+        # puts "changes on #{da.value} [#{da.name}] #{current_item[:data][:attributes].last.inspect}"
+      else
+        attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name), name: da.name, value: da.value, detail: JSON.parse(da.detail), changed: false, previous: da.value, detailprev: JSON.parse(da.detail)}
+        case attrib[:enum_attr]
+          when :fullname
+            current_item[:fullname] = attrib[:value]
+          when :host
+            current_item[:hostesx] = attrib[:value]
+          when :folder
+            current_item[:folder] = attrib[:value]
+        end
+        current_item[:data][:attributes] << attrib
+      end
+      attrib_id = da.name
+      # puts current_item.inspect
+      # puts attrib.inspect
+    end
+
+    return out_data
+  end
+
   def self.analyze(id,discovery_data,save)
     discovery_start = Time.now
     newhost = attribute_changes = 0

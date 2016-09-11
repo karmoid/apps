@@ -1,13 +1,42 @@
 class DiscoveriesController < ApplicationController
+  # Pour requête des derniers Attributs
+  # Workinprogress :
+  # DiscoveryAttribute.joins(:discovery).where(discoveries: {id: disc.id}).updated_between(2.day.ago, Time.now).
+  #   group(:host_id, :attribute_type_id).
+  #   select(:host_id, :attribute_type_id).having("count(discovery_attributes.id) > 1").count
+  #
+  # DiscoveryAttribute.joins(:host, :attribute_type).where(hosts: {name: "frmonvdiesx01"},
+  #   attribute_types: {name: "hostesx"}).order(updated_at: :desc).map
+  #   do |da|
+  #     {name: da.host.name ,up: da.updated_at, attr: da.name, value: da.value}
+  #   end
+  #
+  # DiscoveryAttribute.joins(:host, :attribute_type).
+  #                     where(
+  #                       hosts: {name: "sfrdtcintrdbc01_new_31_07_restore_veeam_replica"},
+  #                       attribute_types: {name: "hostesx"}).
+  #                     order(updated_at: :desc).
+  #                     map do |da|
+  #                      {name: da.host.name ,up: da.updated_at, attr: da.name, value: da.value}
+  #                     end.
+  #                       each {|i| puts "#{i[:up].to_s} - #{i[:attr]} #{i[:value]}" }
+  #
   def show
     @discovery = Discovery.find(params[:id])
     @discovery_tool = @discovery.discovery_tool
-
-    @discovery_attributes = @discovery.discovery_attributes
+    @discovery_attributes = DiscoveryAttribute.joins(:discovery).
+                                                where(discoveries: {id: @discovery.id}).
+                                                group("discovery_attributes.id").
+                                                having("version=max(version)").
+                                                order(:host_id, :attribute_type_id, :id)
+#    @analysed_data = Discovery.build_json(@discovery.id).group_by {|i| i[:hostesx]}.map {|k,v| {k: k, v: v.map {|ki| ki[:data][:host]} }}
+    @analysed_data = Discovery.build_json(@discovery.id).group_by {|i| i[:hostesx]}.map {|k,v| {k: k, v: v.map {|ki| {host: ki[:data][:host], attr: ki[:data][:attributes]} }}}
+# @analysed_data = Discovery.build_json(@discovery.id).group_by {|i| i[:hostesx]}
+# data.group_by {|i| i[:hostesx]}.map {|k,v| {k: k, v: v.map {|ki| ki[:data][:host]} }}
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @discovery }
+      format.json { render json: @discovery  }
     end
 
   end
