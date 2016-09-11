@@ -13,7 +13,7 @@
         </div>
         <div class="list-group">
           <% items.each do |r| %>
-            <%= link_to r[0], :search => params[:search], class: "list-group-item" do %>
+          <%= link_to (defined? parent) ? [parent,r[0]] : r[0], :search => params[:search], class: "list-group-item" do %>
                 <h5 class="list-group-item-heading"><%= r[0][:name].upcase %>&nbsp;<span class="badge"><%= r[1] %></span></h5>
                 <p class="list-group-item-text"><%= r[0][:note] %></p>
             <% end %>

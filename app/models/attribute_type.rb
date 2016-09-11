@@ -5,7 +5,7 @@ class AttributeType < ActiveRecord::Base
 
   def self.humanize_model(plural)
     if plural
-      "types d'attribut'"
+      "types d'attribut"
     else
       "type d'attribut"
     end

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     member do
       post "exportfull"
     end
+    resources :attribute_types, only: [:index, :show] do
+    end
   end
 
   resources :discovery_attributes, only: [:index, :show]

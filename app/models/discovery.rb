@@ -30,24 +30,25 @@ class Discovery < ActiveRecord::Base
     return retour
   end
 
-  def self.build_json(discovery_id)
+  def self.build_json(discovery_id,tag,filter)
     out_data = []
     hostid = -1
     discovery_attributes = DiscoveryAttribute.find_by_sql(
         "select * from discovery_attributes where
         discovery_attributes.discovery_id=#{discovery_id} and
+        lower(discovery_attributes.value) like '%#{filter.downcase}%' and
         (discovery_attributes.host_id,
         discovery_attributes.attribute_type_id, discovery_attributes.discovery_id,
         discovery_attributes.version) in
         (
         select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version) as high_version
         from discovery_attributes
-        where discovery_attributes.name in ('hostesx','ipaddress','fullname','folder')
+        where discovery_attributes.name = '#{tag}'
         group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
         union
         select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version)-1 as high_version
         from discovery_attributes
-        where discovery_attributes.name in ('hostesx','ipaddress','fullname','folder')
+        where discovery_attributes.name = '#{tag}'
         group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
         )
         order by discovery_id,host_id,name,version")
@@ -74,9 +75,7 @@ class Discovery < ActiveRecord::Base
         current_item = {newhost: false,
                         note: da.host.note,
                         host_id: da.host.id,
-                        fullname: "",
-                        hostesx: "",
-                        folder: "",
+                        tag: "",
                         data: {
                           host: da.host.name,
                           attributes: []}
@@ -111,21 +110,11 @@ class Discovery < ActiveRecord::Base
         # puts "changes on #{da.value} [#{da.name}] #{current_item[:data][:attributes].last.inspect}"
       else
         attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name), name: da.name, value: da.value, detail: JSON.parse(da.detail), changed: false, previous: da.value, detailprev: JSON.parse(da.detail)}
-        case attrib[:enum_attr]
-          when :fullname
-            current_item[:fullname] = attrib[:value]
-          when :host
-            current_item[:hostesx] = attrib[:value]
-          when :folder
-            current_item[:folder] = attrib[:value]
-        end
+        current_item[:tag] = attrib[:value] if attrib[:name]==tag
         current_item[:data][:attributes] << attrib
       end
       attrib_id = da.name
-      # puts current_item.inspect
-      # puts attrib.inspect
     end
-
     return out_data
   end
 
