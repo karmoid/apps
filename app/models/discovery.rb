@@ -71,7 +71,7 @@ class Discovery < ActiveRecord::Base
     discovery_attributes.each do |da|
       # puts "found #{da.value} [#{da.name}]"
       if hostid != da.host.id
-        puts "new host #{da.host_id} name: #{da.host.name}"
+        # puts "new host #{da.host_id} name: #{da.host.name}"
         current_item = {newhost: false,
                         note: da.host.note,
                         host_id: da.host.id,
@@ -90,7 +90,7 @@ class Discovery < ActiveRecord::Base
         current_item[:data][:attributes][attrib_size-1][:detail] = JSON.parse(da.detail)
         current_item[:data][:attributes][attrib_size-1][:changed] = true
         current_item[:tag] = attrib[:value] if attrib[:name]==tag
-        puts "#{da.host.name}: changement #{da.value} remplace #{current_item[:data][:attributes][attrib_size-1][:previous]}"
+        # puts "#{da.host.name}: changement #{da.value} remplace #{current_item[:data][:attributes][attrib_size-1][:previous]}"
       else
         attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name), name: da.name, value: da.value, detail: JSON.parse(da.detail), changed: false, previous: da.value, detailprev: JSON.parse(da.detail)}
         current_item[:tag] = attrib[:value] if attrib[:name]==tag

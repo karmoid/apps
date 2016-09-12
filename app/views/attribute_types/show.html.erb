@@ -1,15 +1,25 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @attribute_type, parent: [@discovery_tool,@discovery]}) %>
 
-<%= form_tag( action: :filter, class: "form-horizontal", discovery_id: @discovery.id ) do %>
+<%= form_tag( {action: :filter, discovery_id: @discovery.id},{class: "form-horizontal"} ) do %>
   <fieldset>
     <legend>filtre</legend>
     <div class="form-group">
-      <label for="iFilter" class="col-lg-2 control-label">Filtre</label>
+      <label for="iFilter" class="col-lg-2 control-label">Filtre sur nom</label>
       <div class="col-lg-10">
         <%= text_field_tag :iFilter, @filter, class:'form-control' %>
       </div>
-    </div>
-    <div class="form-group">
+      <label for="iReference" class="col-lg-2 control-label">Session de référence</label>
+      <div class="col-lg-10">
+        <% option_data = [] %>
+        <% @discovery_sessions.each do |ds| %>
+          <% option_data << ["il y a "+humanize(DateTime.now.to_i-ds.created_at.to_i), ds.id, {filtertime: ds.created_at}] %>
+        <% end %>
+        <%= select_tag :iReference, options_for_select(option_data, disabled: option_data[0][0]) %>
+      </div>
+      <label for="iTabular" class="col-lg-2 control-label">En ligne</label>
+      <div class="col-lg-10">
+        <%= check_box_tag :iTabular, 'yes', @tabular=="yes" %>
+      </div>
       <div class="col-lg-10 col-lg-offset-2">
         <%= button_tag(:class => "btn btn-default") do %>
            <span class='glyphicon glyphicon-search'>&nbsp;Filtrer</span>
@@ -18,32 +28,33 @@
     </div>
   </fieldset>
 <% end %>
-
+<% if @tabular=="yes" %>
 <div class="row">
   <div class="col-lg-12">
       <div class="bs-component">
         <table class="table table-striped table-hover ">
           <thead>
             <tr>
-              <% @analysed_data.each do |da| %>
-              <th><%= da[:k] %></th>
-              <% end %>
+              <th><%= @attribute_type.name %></th><th>Machine</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
             <% @analysed_data.each do |da| %>
-              <% buffer = "" %>
-              <% da[:v].each do |db|%>
-                <% db[:attr].each do |attribut| %>
-                  <% if (attribut[:name]==@attribute_type.name) && (attribut[:changed]) %>
-                    <% buffer = "<span class='text-success'>#{db[:host]}</span><br/>" + buffer %>
-                  <% else %>
-                    <% buffer = buffer + "<span class='text-muted'>#{db[:host]}</span><br/>" %>
+              <tr>
+                <td><%=da[:k] %></td>
+                <td>
+                  <% buffer = "" %>
+                  <% da[:v].each do |db|%>
+                    <% db[:attr].each do |attribut| %>
+                      <% if (attribut[:name]==@attribute_type.name) && (attribut[:changed]) %>
+                        <% buffer = "<span class='text-success'>#{db[:host]}</span><br/>" + buffer %>
+                      <% else %>
+                        <% buffer = buffer + "<span class='text-muted'>#{db[:host]}</span><br/>" %>
+                      <% end %>
+                    <% end %>
                   <% end %>
-                <% end %>
-              <% end %>
-              <td><%= raw buffer %></td>
+                  <%= raw buffer %>
+                </td>
             <% end %>
             </tr>
           </tbody>
@@ -52,5 +63,39 @@
     </div>
   </div>
 </div>
-
+<% else %>
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="bs-component">
+          <table class="table table-striped table-hover ">
+            <thead>
+              <tr>
+                <% @analysed_data.each do |da| %>
+                <th><%= da[:k] %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              <% @analysed_data.each do |da| %>
+                <% buffer = "" %>
+                <% da[:v].each do |db|%>
+                  <% db[:attr].each do |attribut| %>
+                    <% if (attribut[:name]==@attribute_type.name) && (attribut[:changed]) %>
+                      <% buffer = "<span class='text-success'>#{db[:host]}</span><br/>" + buffer %>
+                    <% else %>
+                      <% buffer = buffer + "<span class='text-muted'>#{db[:host]}</span><br/>" %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <td><%= raw buffer %></td>
+              <% end %>
+              </tr>
+            </tbody>
+          </table>
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div><!-- /example -->
+      </div>
+    </div>
+  </div>
+<% end %>
 <%= render(partial: "/layouts/listitems", locals: {items: @discovery_attributes}) %>
