@@ -30,7 +30,7 @@ class Discovery < ActiveRecord::Base
     return retour
   end
 
-  def self.build_json(discovery_id,tag,filter)
+  def self.build_json(discovery_id,tag,filter,fields)
     out_data = []
     hostid = -1
     discovery_attributes = DiscoveryAttribute.find_by_sql(
@@ -43,12 +43,12 @@ class Discovery < ActiveRecord::Base
         (
         select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version) as high_version
         from discovery_attributes
-        where discovery_attributes.name = '#{tag}'
+        where discovery_attributes.attribute_type_id in (#{fields.join(',')})
         group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
         union
         select discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id, max(discovery_attributes.version)-1 as high_version
         from discovery_attributes
-        where discovery_attributes.name = '#{tag}'
+        where discovery_attributes.attribute_type_id in (#{fields.join(',')})
         group by discovery_attributes.host_id, discovery_attributes.attribute_type_id, discovery_attributes.discovery_id
         )
         order by discovery_id,host_id,name,version")
@@ -89,10 +89,17 @@ class Discovery < ActiveRecord::Base
         current_item[:data][:attributes][attrib_size-1][:value] = da.value
         current_item[:data][:attributes][attrib_size-1][:detail] = JSON.parse(da.detail)
         current_item[:data][:attributes][attrib_size-1][:changed] = true
+        current_item[:data][:attributes][attrib_size-1][:since] = da.created_at
+        current_item[:data][:attributes][attrib_size-1][:to] = da.updated_at
         current_item[:tag] = attrib[:value] if attrib[:name]==tag
         # puts "#{da.host.name}: changement #{da.value} remplace #{current_item[:data][:attributes][attrib_size-1][:previous]}"
       else
-        attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name), name: da.name, value: da.value, detail: JSON.parse(da.detail), changed: false, previous: da.value, detailprev: JSON.parse(da.detail)}
+        attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name),
+                    name: da.name, value: da.value, detail: JSON.parse(da.detail),
+                    since: da.created_at, to: da.updated_at,
+                    changed: false, previous: da.value, detailprev: JSON.parse(da.detail),
+                    prev_since: da.created_at, prev_to: da.updated_at,
+                  }
         current_item[:tag] = attrib[:value] if attrib[:name]==tag
         current_item[:data][:attributes] << attrib
       end
@@ -168,7 +175,7 @@ class Discovery < ActiveRecord::Base
             # pas de changement de données, mais on note la durée en jouant
             # avec updated_at
             # vérifier si un save sans réelle modification fait bien un update.
-            value.save
+            value.touch
             # autre solution, une instruction SQL pour faire un Update massif
             # mais il faudrait trouver le critère de date pour la sélection
           end
