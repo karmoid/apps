@@ -84,30 +84,13 @@ class Discovery < ActiveRecord::Base
         hostid = da.host.id
         attrib_id = nil
       end
-      if da.version>1
-        puts "attrib_id: #{attrib_id} da.name: #{da.name} value:#{da.value} vers:#{da.version}"
-        puts "attrib_id nil" if attrib_id.nil?
-        puts da.name==attrib_id
-      end
       if (da.name==attrib_id)
         attrib_size = current_item[:data][:attributes].size
-        if da.version>1
-          puts "changes on #{da.value} [#{da.name}] attributes Size: #{attrib_size} "
-          puts "#{current_item[:data][:attributes][attrib_size-1].inspect}"
-        end
         current_item[:data][:attributes][attrib_size-1][:value] = da.value
         current_item[:data][:attributes][attrib_size-1][:detail] = JSON.parse(da.detail)
         current_item[:data][:attributes][attrib_size-1][:changed] = true
-        #attrib[:value] = da.value
-        #attrib[:details] = da.details
-        #attrib[:changed] = true
-        if da.version>1
-          puts "changes on #{da.value} [#{da.name}] #{current_item[:data][:attributes][attrib_size-1]}"
-        end
-        # current_item[:data][:attributes].last[:value] = da.value
-        # current_item[:data][:attributes].last[:details] = da.details
-        # current_item[:data][:attributes].last[:changed] = true
-        # puts "changes on #{da.value} [#{da.name}] #{current_item[:data][:attributes].last.inspect}"
+        current_item[:tag] = attrib[:value] if attrib[:name]==tag
+        puts "#{da.host.name}: changement #{da.value} remplace #{current_item[:data][:attributes][attrib_size-1][:previous]}"
       else
         attrib = {enum_attr: ApplicationHelper::dbtype_to_enum(da.attribute_type.name), name: da.name, value: da.value, detail: JSON.parse(da.detail), changed: false, previous: da.value, detailprev: JSON.parse(da.detail)}
         current_item[:tag] = attrib[:value] if attrib[:name]==tag

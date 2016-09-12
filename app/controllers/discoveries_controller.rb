@@ -24,25 +24,14 @@ class DiscoveriesController < ApplicationController
   def show
     @discovery = Discovery.find(params[:id])
     @discovery_tool = @discovery.discovery_tool
-    # @discovery_attributes = DiscoveryAttribute.joins(:discovery).
-    #                                            where(discoveries: {id: @discovery.id}).
-    #                                            group("discovery_attributes.id").
-    #                                            having("version=max(version)").
-    #                                            order(:host_id, :attribute_type_id, :id)
     @attribute_types = DiscoveryAttribute.joins(:discovery).
                                           where(discoveries: {id: @discovery.id}).
                                           group(:attribute_type).
                                           count
-    # GOOD @analysed_data = Discovery.build_json(@discovery.id,'hostesx').group_by {|i| i[:tag]}.map {|k,v| {k: k, v: v.map {|ki| {host: ki[:data][:host], attr: ki[:data][:attributes]} }}}
-# @analysed_data = Discovery.build_json(@discovery.id).group_by {|i| i[:hostesx]}
-# data.group_by {|i| i[:hostesx]}.map {|k,v| {k: k, v: v.map {|ki| ki[:data][:host]} }}
-# @analysed_data = Discovery.build_json(@discovery.id).group_by {|i| i[:hostesx]}.map {|k,v| {k: k, v: v.map {|ki| ki[:data][:host]} }}
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @discovery  }
     end
-
   end
 
   def index
