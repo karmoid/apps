@@ -42,6 +42,7 @@ class AttributeTypesController < ApplicationController
       # h_content = "#{@attribute_type.name}\tprevious\tsince\tto\tprevious\t\n"
       content = h_content = h2_content = ""
       header_columns = []
+      header_netw = nil
       headerdone = false
       datacompared.each do |root|
         #puts "#{root[:k]}: #{root[:v].inspect}"
@@ -71,6 +72,7 @@ class AttributeTypesController < ApplicationController
                     d["ipaddresses"].map do |ipa|
                       ipa["value"]
                     end.join("\t")+"\t"
+                    header_netw ||= "card#\tconnected\tmac\tnetwork\t@ip1\t@ip2\t@ip3\t@ip4\t@ip5\t@ip6\t"
                   end
                 end
               end
@@ -93,7 +95,7 @@ class AttributeTypesController < ApplicationController
           end
         end
       end
-      h2_content = header_columns.join("\t")+"\t"
+      h2_content = header_columns.join("\t")+"\t"+header_netw
       send_data "#{h_content}#{h2_content}\n#{content}", :filename => filename
     end
 end
