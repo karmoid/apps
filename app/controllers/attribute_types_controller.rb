@@ -64,16 +64,16 @@ class AttributeTypesController < ApplicationController
                 data_columns.push item[:value]
               else
                 data_columns[header_columns.index(item[:name])] = item[:value]
-                # puts "test #{item[:name]} with #{ApplicationHelper::enum_to_dbtype(:networkcards)}"
-                if ApplicationHelper::enum_to_dbtype(:networkcards)==item[:name]
-                  # puts "NetworkCards !! #{item[:detail].inspect}"
-                  item[:detail].each_with_index do |d,idx|
-                    netw_columns[idx] = "#{idx.to_s}\t#{d["connected"] ? "ON" : "OFF"}\t#{d["mac"]}\t#{d["network"]}\t"+
-                    d["ipaddresses"].map do |ipa|
-                      ipa["value"]
-                    end.join("\t")+"\t"
-                    header_netw ||= "card#\tconnected\tmac\tnetwork\t@ip1\t@ip2\t@ip3\t@ip4\t@ip5\t@ip6\t"
-                  end
+              end
+              # puts "test #{item[:name]} with #{ApplicationHelper::enum_to_dbtype(:networkcards)}"
+              if ApplicationHelper::enum_to_dbtype(:networkcards)==item[:name]
+                # puts "NetworkCards !! #{item[:detail].inspect}"
+                item[:detail].each_with_index do |d,idx|
+                  netw_columns[idx] = "#{idx.to_s}\t#{d["connected"] ? "ON" : "OFF"}\t#{d["mac"]}\t#{d["network"]}\t"+
+                  d["ipaddresses"].map do |ipa|
+                    ipa["value"]
+                  end.join("\t")+"\t"
+                  header_netw ||= "card#\tconnected\tmac\tnetwork\t@ip1\t@ip2\t@ip3\t@ip4\t@ip5\t@ip6\t"
                 end
               end
             end
