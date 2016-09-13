@@ -58,7 +58,7 @@ class DiscoveriesController < ApplicationController
         ext_list = vms(x)
          attribute_list += ext_list unless ext_list.nil?
       when "VirtualMachine"
-        puts "#{x.name}"
+        # puts "#{x.name}"
         attributes = []
         snapshots = []
         fullname = ""
@@ -180,10 +180,10 @@ class DiscoveriesController < ApplicationController
       content = "vcentername\tvmname\tfoldername\thostname\tesxname\tsite\tnumEthCards\tindex\tconnected\tmac"+
                 "\tvnetwork\tno\tipaddress\tchanged\tprevious\t\n"
       datacompared.each do |dc|
-        puts dc[:data][:host]
+        # puts dc[:data][:host]
         dc[:data][:attributes].each_with_index do |attrib,i|
           if attrib[:enum_attr]==:networkcards
-            puts attrib[:enum_attr].to_s
+            # puts attrib[:enum_attr].to_s
             attrib[:details].each_with_index do |d,idx|
               site = dc[:data][:hostesx].nil? ? "n/a" : (dc[:data][:hostesx].include? "b4") ? "B4" : (dc[:data][:hostesx].include? "g1") ? "G1" : "n/a"
               content_w = "#{@discovery.target}\t#{dc[:data][:host]}\t#{dc[:data][:folder]}\t"+

@@ -1,6 +1,6 @@
 class AttributeTypesController < ApplicationController
   def show
-    puts params.inspect
+    # puts params.inspect
     @attribute_type = AttributeType.find(params[:id])
     @filter = params[:iFilter] || ""
     @reference = params[:iReference] || ""
@@ -50,6 +50,7 @@ class AttributeTypesController < ApplicationController
           f_content = l_content = ""
           data_columns = []
           base_found = false
+          netw_columns = []
           leaf[:attr].each do |item|
             if ApplicationHelper::enum_to_dbtype(item[:enum_attr])==@attribute_type.name
               h_content += "#{item[:name]}\tprevious\tsince\tto\thost\t" unless headerdone
@@ -62,6 +63,16 @@ class AttributeTypesController < ApplicationController
                 data_columns.push item[:value]
               else
                 data_columns[header_columns.index(item[:name])] = item[:value]
+                # puts "test #{item[:name]} with #{ApplicationHelper::enum_to_dbtype(:networkcards)}"
+                if ApplicationHelper::enum_to_dbtype(:networkcards)==item[:name]
+                  # puts "NetworkCards !! #{item[:detail].inspect}"
+                  item[:detail].each_with_index do |d,idx|
+                    netw_columns[idx] = "#{idx.to_s}\t#{d["connected"] ? "ON" : "OFF"}\t#{d["mac"]}\t#{d["network"]}\t"+
+                    d["ipaddresses"].map do |ipa|
+                      ipa["value"]
+                    end.join("\t")+"\t"
+                  end
+                end
               end
             end
           end
@@ -71,8 +82,15 @@ class AttributeTypesController < ApplicationController
           end
           headerdone = true
           l_content = data_columns.join("\t")+"\t"
+
           # h2_content += "#{item[:name]}\t" unless headerdone
-          content += f_content + l_content + "\n"
+          if netw_columns.empty?
+            content += f_content + l_content + "\n"
+          else
+            netw_columns.each do |nc|
+              content += f_content + l_content + nc + "\n"
+            end
+          end
         end
       end
       h2_content = header_columns.join("\t")+"\t"

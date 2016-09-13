@@ -36,7 +36,6 @@ class Discovery < ActiveRecord::Base
     discovery_attributes = DiscoveryAttribute.find_by_sql(
         "select * from discovery_attributes where
         discovery_attributes.discovery_id=#{discovery_id} and
-        lower(discovery_attributes.value) like '%#{filter.downcase}%' and
         (discovery_attributes.host_id,
         discovery_attributes.attribute_type_id, discovery_attributes.discovery_id,
         discovery_attributes.version) in
@@ -72,6 +71,12 @@ class Discovery < ActiveRecord::Base
       # puts "found #{da.value} [#{da.name}]"
       if hostid != da.host.id
         # puts "new host #{da.host_id} name: #{da.host.name}"
+        unless current_item.nil?
+          if !current_item[:tag].match(/#{filter}/i)
+            # puts "FOUND #{filter} in #{current_item[:tag]}"
+            out_data.pop
+          end
+        end
         current_item = {newhost: false,
                         note: da.host.note,
                         host_id: da.host.id,
@@ -104,6 +109,12 @@ class Discovery < ActiveRecord::Base
         current_item[:data][:attributes] << attrib
       end
       attrib_id = da.name
+    end
+    unless current_item.nil?
+      if !current_item[:tag].match(/#{filter}/i)
+        # puts "FOUND #{filter} in #{current_item[:tag]}"
+        out_data.pop
+      end
     end
     return out_data
   end
