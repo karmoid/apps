@@ -199,6 +199,7 @@ class Discovery < ActiveRecord::Base
     @discovery.discovery_sessions.build(from: discovery_start, to: Time.now,
                             newhost: newhost, attribute_changes: attribute_changes, name: @discovery.name,
                             note: @discovery.note).save if save
+    puts "* #{newhost} nouveaux objets / #{attribute_changes} attributs modifies."
     return out_data
   end
 
