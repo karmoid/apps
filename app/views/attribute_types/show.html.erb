@@ -1,47 +1,50 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @attribute_type, parent: [@discovery_tool,@discovery]}) %>
 
 <div class="row">
-  <%= form_tag( {action: :filter, discovery_id: @discovery.id},{class: "form-horizontal"} ) do %>
-    <fieldset>
-      <legend>filtre</legend>
-      <div class="col-lg-8">
+  <div class="col-lg-4">
+    <%= form_tag( {action: :filter, discovery_id: @discovery.id},{class: "form-horizontal"} ) do %>
+      <fieldset>
+        <legend>Filter les résultats et exporter</legend>
+        <input name="authenticity_token"
+             type="hidden"
+             value="<%= form_authenticity_token %>"/>
         <div class="form-group">
-          <label for="iFilter" class="col-lg-2 control-label">Filtre sur nom</label>
-          <div class="col-lg-10">
+          <label for="iFilter" class="col-lg-3 control-label">Filtre sur nom</label>
+          <div class="col-lg-9">
             <%= text_field_tag :iFilter, @filter, class:'form-control' %>
           </div>
-          <label for="iReference" class="col-lg-2 control-label">Session de référence</label>
-          <div class="col-lg-10">
+        </div>
+        <div class="form-group">
+          <label for="iReference" class="col-lg-3 control-label">Référence</label>
+          <div class="col-lg-9">
             <% option_data = [["Dernière évolution", -1, {filtertime: DateTime.now}]] %>
             <% @discovery_sessions.each do |ds| %>
               <% option_data << ["il y a "+humanize(DateTime.now.to_i-ds.created_at.to_i), ds.id, {filtertime: ds.created_at}] %>
             <% end %>
             <%= select_tag :iReference, options_for_select(option_data, disabled: option_data[0][0]), class:'form-control' %>
           </div>
-          <label for="iTabular" class="col-lg-2 control-label">En ligne</label>
-          <div class="col-lg-10">
-            <%= check_box_tag :iTabular, 'yes', @tabular=="yes", class:'form-control' %>
-          </div>
-          <div class="col-lg-10 col-lg-offset-2">
-            <%= button_tag(:class => "btn btn-default") do %>
-               <span class='glyphicon glyphicon-search'>&nbsp;Filtrer</span>
-            <% end %>
-            <%= button_tag(name: "export", :class => "btn") do %>
-               <span class='glyphicon glyphicon-open'>&nbsp;Exporter</span>
-            <% end %>
-          </div>
         </div>
-      </div>
-      <div class="col-lg-4">
         <div class="form-group">
-          <label for="iFields" class="col-lg-12 control-label">Champs à inclure</label>
-          <div class="col-lg-12">
+          <label for="iFields" class="col-lg-3 control-label">Champs</label>
+          <div class="col-lg-9">
             <%= select_tag "iFields", options_from_collection_for_select(@attribute_types, "id", "note", @champs) , multiple: true, class:'form-control' %>
           </div>
         </div>
-      </div>
-    </fieldset>
-  <% end %>
+        <label for="iTabular" class="col-lg-3 control-label">En ligne</label>
+        <div class="col-lg-9">
+          <%= check_box_tag :iTabular, 'yes', @tabular=="yes", class: 'form-control' %>
+        </div>
+        <div class="col-lg-9 col-lg-offset-3">
+          <%= button_tag(:class => "btn btn-default") do %>
+             <span class='glyphicon glyphicon-search'>&nbsp;Filtrer</span>
+          <% end %>
+          <%= button_tag(name: "export", :class => "btn") do %>
+             <span class='glyphicon glyphicon-open'>&nbsp;Exporter</span>
+          <% end %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>
 <% if @tabular=="yes" %>
 <div class="row">

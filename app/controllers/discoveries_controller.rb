@@ -65,7 +65,7 @@ class DiscoveriesController < ApplicationController
   protected
 
     def export_csv(datacompared)
-      filename = I18n.l(Time.now, :format => :short) + "- discovery.xls"
+      filename = filename = I18n.l(Time.now.localtime, :format => :filen) + "-discovery.xls"
       content = "vcentername\tvmname\tfoldername\thostname\tesxname\tsite\tnumEthCards\tindex\tconnected\tmac"+
                 "\tvnetwork\tno\tipaddress\tchanged\tprevious\t\n"
       datacompared.each do |dc|

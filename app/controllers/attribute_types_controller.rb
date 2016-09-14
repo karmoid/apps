@@ -38,7 +38,7 @@ class AttributeTypesController < ApplicationController
   protected
 
     def export_csv(datacompared)
-      filename = I18n.l(Time.now, :format => :short) + "- attribute_type.xls"
+      filename = I18n.l(Time.now.localtime, :format => :filen) + "-attribute_type.xls"
       # h_content = "#{@attribute_type.name}\tprevious\tsince\tto\tprevious\t\n"
       content = h_content = h2_content = ""
       header_columns = []
@@ -95,7 +95,8 @@ class AttributeTypesController < ApplicationController
           end
         end
       end
-      h2_content = header_columns.join("\t")+"\t"+header_netw
+      h2_content = header_columns.join("\t")
+      h2_content += "\t"+header_netw unless header_netw.nil?
       send_data "#{h_content}#{h2_content}\n#{content}", :filename => filename
     end
 end

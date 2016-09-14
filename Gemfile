@@ -4,13 +4,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 
-group :production do
-  # Use postgresql as the database for Active Record
-  gem 'pg', '~> 0.15'
-end
+gem 'pg', '~> 0.15'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  # gem 'sqlite3'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 gem 'acts-as-taggable-on', '~> 3.4'
