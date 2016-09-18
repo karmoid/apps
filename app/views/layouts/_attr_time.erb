@@ -1,0 +1,39 @@
+<%= link_to elements.last, :search => params[:search], class: "list-group-item" do %>
+  <h5 class="list-group-item-heading"><%= elements.last.name.upcase %>&nbsp;</h5>
+  <p class="list-group-item-text">
+    <% if defined? elements.last.note %>
+      <%= elements.last.note %>
+    </p>
+    <% else %>
+      <% if elements.size==1 %>
+        <%= case ApplicationHelper::dbtype_to_enum(elements.last.attribute_type.name)
+            when :mem
+              number_to_human_size(elements.last.value.to_i * 1024 * 1024)
+            else
+              elements.last.value
+            end %>
+        <% if (defined? puts_date) %>
+          <span class="label label-default"><%= humanize(DateTime.now.to_i-elements.last[puts_date].to_i) %></span>
+        <% end %>
+      </p>
+      <% else %>
+        <%
+          from=elements.first.created_at
+          to=elements.last.updated_at
+          nbheur = (to.to_i - from.to_i) / 3600
+          mycolors = ["warning","danger"]
+          lastcolor = "success"
+        %>
+          <ul class="nav nav-pills">
+            <% elements.each_with_index do |item,i| %>
+              <% if i==elements.size-1 %>
+                <li class="active"><%= item.value %> <span class="badge"><%= humanize(DateTime.now.to_i-item.created_at.to_i) %></span></li>
+              <% else %>
+                <li><%= item.value %> <span class="badge"><%= humanize(DateTime.now.to_i-item.created_at.to_i) %></span></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </p>
+      <% end %>
+    <% end %>
+<% end %>
