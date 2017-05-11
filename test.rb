@@ -1,5 +1,7 @@
 puts "set ENV upwd to proceed !" if ENV["upwd"].nil?
+puts "**Demarrage**"
 unless ENV["upwd"].nil?
+  puts "Nous recherchons les vCenter enregistres"
   DiscoveryTool.find_by_name("vcenter").discoveries.each do |d|
     puts "#{d.name} [#{d.note}] on #{d.target} with #{d.credential}"
     # if d.name=="horizonpodb4"
@@ -10,3 +12,4 @@ unless ENV["upwd"].nil?
     # end
   end
 end
+puts "**Fin**"
