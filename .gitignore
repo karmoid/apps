@@ -44,3 +44,7 @@ bower.json
 *.zip
 db/seeds.rb
 public/assets
+
+*_nogit.*
+*.xls
+*.xlsx

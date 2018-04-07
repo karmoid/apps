@@ -28,7 +28,7 @@ development:
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   host: localhost
-  database: apps_development
+  database: apps_production
   user: appsuser
   password: appsuser
 

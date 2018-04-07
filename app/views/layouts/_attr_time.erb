@@ -24,7 +24,21 @@
           mycolors = ["warning","danger"]
           lastcolor = "success"
         %>
-          <ul class="nav nav-pills">
+        <div class="btn-group">
+          <button type="button" class="btn btn-warning">Historique</button>
+          <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
+
             <% elements.each_with_index do |item,i| %>
               <% if i==elements.size-1 %>
                 <li class="active"><%= item.value %> <span class="badge"><%= humanize(DateTime.now.to_i-item.created_at.to_i) %></span></li>

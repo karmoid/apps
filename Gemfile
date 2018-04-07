@@ -11,6 +11,7 @@ group :development, :test do
   # gem 'sqlite3'
   gem "better_errors"
   gem "binding_of_caller"
+  gem "simple-spreadsheet"
 end
 
 gem 'acts-as-taggable-on', '~> 3.4'
