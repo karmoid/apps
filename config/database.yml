@@ -49,3 +49,14 @@ production:
   database: apps_production
   user: appsuser
   password: <%= ENV['TT_DATABASE_PASSWORD'] %>
+
+runner_prod:
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  host: sfrdtcsupport02.emea.brinksgbl.com
+  database: apps_production
+  user: appsuser
+  password: <%= ENV['TT_DATABASE_PASSWORD'] %>
