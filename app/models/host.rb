@@ -15,6 +15,8 @@ class Host < ActiveRecord::Base
   has_many :technologies,  -> { uniq }, through: :techno_instances
   has_and_belongs_to_many :contracts
   has_and_belongs_to_many :documents
+  has_and_belongs_to_many :infos
+
 
   def self.humanize_model(plural)
     if plural
@@ -54,6 +56,9 @@ class Host < ActiveRecord::Base
     configure :clones do
       label 'Modèle pour : '
     end
+    configure :infos do
+      label 'Evénements/Changes :'
+    end
     list do
       field :name
       field :note
@@ -62,6 +67,7 @@ class Host < ActiveRecord::Base
       field :clones
       field :contracts
       field :documents
+      field :infos
     end
   end
 end

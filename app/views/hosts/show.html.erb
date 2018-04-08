@@ -1,4 +1,5 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @host, parent: [@host.deployment,@host_model]}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @infos, icon: "info"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @contracts, icon: "certificate"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @techno_instances, icon: "cog"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @technologies, icon: "hdd"}) %>

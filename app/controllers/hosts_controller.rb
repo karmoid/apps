@@ -3,6 +3,7 @@ class HostsController < ApplicationController
     @host = Host.find(params[:id])
     @host_model = @host.host_model
     @clones = @host.clones
+    @infos = @host.infos
 
     @deployment = @host.deployment
     @discovery_attributes = @host.discovery_attributes.order("discovery_id, attribute_type_id, discovery_attributes.id")

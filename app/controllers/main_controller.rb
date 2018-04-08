@@ -43,6 +43,11 @@ class MainController < ApplicationController
     @mainteners_u = Maintener.where(Maintener.arel_table[:updated_at].gt(Date.today-3)).
                               where(Maintener.arel_table[:created_at].lt(Date.today-3)).
                               order(updated_at: :desc).limit(5)
+    @infos_c = Info.where(Info.arel_table[:created_at].gt(Date.today-3)).
+                              order(created_at: :desc).limit(5)                              
+    @infos_u = Info.where(Info.arel_table[:updated_at].gt(Date.today-3)).
+                              where(Info.arel_table[:created_at].lt(Date.today-3)).
+                              order(updated_at: :desc).limit(5)
 
     @app_roles_count = AppRole.all.count
     @deployments_count = Deployment.all.count
@@ -54,6 +59,7 @@ class MainController < ApplicationController
     @realisations_count = Realisation.all.count
     @techno_instances_count = TechnoInstance.all.count
     @technologies_count = Technology.all.count
+    @infos_count = Info.all.count
   end
 
   def search_by_tag(search_text)
@@ -75,6 +81,7 @@ class MainController < ApplicationController
     @technologies = Technology.where(id: -1)
     @documents = Document.where(id: -1)
     @document_types = DocumentType.where(id: -1)
+    @infos = Info.tagged_with(search_text)
 
     @tags = nil
   end
@@ -161,6 +168,10 @@ class MainController < ApplicationController
     @discoveries = Discovery.search(search_text)
     objet ||= @discoveries.first
     counter += @discoveries.count
+
+    @infos = Info.search(search_text)
+    objet ||= @infos.first
+    counter += @infos.count
 
     @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(tags: {name: search_text}).map { |tagging| { id: tagging.tag_id, name: tagging.tag.name, note: "Tag" } }.uniq
 

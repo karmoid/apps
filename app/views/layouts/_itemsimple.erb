@@ -3,6 +3,9 @@
     <p class="list-group-item-text">
       <% if defined? element.note %>
         <%= element.note %>
+        <% if (defined? element.target) && (! element.target.nil?) %>
+            <p class="list-group-item-text"><span class="badge"><%= element.target.to_formatted_s(:long_ordinal) %></span></p>
+        <% end %>
       <% else %>
         <%= case ApplicationHelper::dbtype_to_enum(element.attribute_type.name)
         when :mem

@@ -1,5 +1,5 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @app_module, parent: @application}) %>
-
+  <%= render(partial: "/layouts/listitems", locals: {items: @infos , toptitle: "Evénements", icon: "info-sign"}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @people , toptitle: "Contacts à pouvoir", icon: "eye-open"}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @mainteners, toptitle: "Contacts #{@maintener.name unless @maintener.nil?}", icon: "user"}) %>
   <%= render(partial: "/layouts/listitems", locals: {items: @hostsprod, toptitle: "Production", icon: "screenshot"}) %>

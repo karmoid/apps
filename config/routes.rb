@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   resources :documents, only: [:index, :show]
 
+  resources :infos, only: [:index, :show]
+
   resources :document_types, only: [:index, :show]
 
   resources :contracts, only: [:index, :show]

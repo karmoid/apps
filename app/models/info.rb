@@ -1,17 +1,15 @@
-class Person < ActiveRecord::Base
+class Info < ActiveRecord::Base
   acts_as_taggable # Alias for acts_as_taggable_on :tags
 
-  has_and_belongs_to_many :entities
-  has_and_belongs_to_many :mainteners
-  has_many :powers
-  has_and_belongs_to_many :infos
-
+  has_and_belongs_to_many :app_modules
+  has_and_belongs_to_many :hosts
+  has_and_belongs_to_many :people
 
   def self.humanize_model(plural)
     if plural
-      "contacts"
+      "informations"
     else
-      "contact"
+      "information"
     end
   end
 
@@ -23,13 +21,18 @@ class Person < ActiveRecord::Base
     end
   end
 
+  accepts_nested_attributes_for :people, :allow_destroy => true
+  # attr_accessible :people_attributes
+
   rails_admin do
     list do
       field :name
       field :note
-      field :entities
-      field :mainteners
-      field :infos
+      field :target
+      field :app_modules
+      field :people
+      field :hosts
     end
   end
+
 end

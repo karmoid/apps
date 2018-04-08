@@ -1,6 +1,8 @@
 <%= render(partial: "/layouts/showitem_top", locals: {item: @person}) %>
-<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @infos, icon: "info-sign"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @mainteners, icon: "wrench"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @entities, icon: "home" }) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @app_roles, icon: "sunglasses"}) %>
 <%= render(partial: "/layouts/listitems", locals: {items: @applications, icon: "modal-window"}) %>
+

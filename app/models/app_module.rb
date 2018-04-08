@@ -10,6 +10,8 @@ class AppModule < ActiveRecord::Base
   has_many :people,  -> { uniq }, through: :powers
   has_and_belongs_to_many :contracts
   has_and_belongs_to_many :documents
+  has_and_belongs_to_many :infos
+
 
   def self.humanize_model(plural)
     if plural
@@ -35,6 +37,7 @@ class AppModule < ActiveRecord::Base
       field :realisations
       field :note
       field :people
+      field :infos
     end
   end
 

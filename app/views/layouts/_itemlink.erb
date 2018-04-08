@@ -1,2 +1,6 @@
 <tr><td><%= link_to element.name, controller: element.class.name.tableize, action: :show, id: element.id, :search => params[:search] %></td><td>
-  <%= element.note %></td></tr>
+  <%= element.note %></td>
+  <% if defined? element.target %>
+  	<td><%= element.target.to_formatted_s(:long_ordinal) unless element.target.nil? %></td>
+  <% end %>
+</tr>

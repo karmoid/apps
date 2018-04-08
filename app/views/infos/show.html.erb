@@ -1,0 +1,4 @@
+<%= render(partial: "/layouts/showitem_top", locals: {item: @info}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @app_modules, icon: "tasks"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @hosts, icon: "screenshot"}) %>
+<%= render(partial: "/layouts/listitems", locals: {items: @people, icon: "user"}) %>

@@ -28,6 +28,7 @@
       <%= render(partial: "searchresult", locals: {result: @discoveries, element: "discoveries", title: "Découvertes"}) %>
       <%= render(partial: "searchresult", locals: {result: @discovery_tools, element: "discovery_tools", title: "Types de découvertes"}) %>
       <%= render(partial: "searchresult", locals: {result: @discovery_attributes, element: "discovery_attributes", title: "Attributs découverts"}) %>
+      <%= render(partial: "searchresult", locals: {result: @infos, element: "infos", title: "Evénements"}) %>
       <%= render(partial: "searchresult", locals: {tags: @tags}) %>
     </tbody>
   </table>

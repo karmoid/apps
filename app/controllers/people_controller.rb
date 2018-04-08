@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
+    @infos = @person.infos
     @app_roles = AppRole.joins(powers: :person).where(people: {id: @person.id})
     @entities = @person.entities.distinct
     @mainteners = @person.mainteners.distinct

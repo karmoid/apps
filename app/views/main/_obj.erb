@@ -1,2 +1,4 @@
 <tr><td><%= link_to obj.name, :controller => obj.class.name.tableize, action: :show,  id: obj.id, :search => params[:search] %></td><td>
-<%= (defined? obj.note) ? obj.note : obj.discovery.name+"/"+obj.value.to_s %></td><td><%= title %></td></tr>
+<%= (defined? obj.note) ? obj.note : obj.discovery.name+"/"+obj.value.to_s %></td><td>
+<%= (defined? obj.target) ? obj.target.to_formatted_s(:long_ordinal) : title %></td></tr>
+

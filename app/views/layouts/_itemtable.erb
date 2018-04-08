@@ -4,6 +4,9 @@
       <tr>
         <th>Nom</th>
         <th>Note</th>
+        <% if defined? element.target %>
+          <th>Echéance</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
