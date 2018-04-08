@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630192405) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20180408083322) do
 
   create_table "app_modules", force: true do |t|
     t.string   "name"
@@ -41,6 +38,14 @@ ActiveRecord::Schema.define(version: 20160630192405) do
 
   add_index "app_modules_documents", ["app_module_id"], name: "index_app_modules_documents_on_app_module_id", using: :btree
   add_index "app_modules_documents", ["document_id"], name: "index_app_modules_documents_on_document_id", using: :btree
+
+  create_table "app_modules_infos", id: false, force: true do |t|
+    t.integer "info_id",       null: false
+    t.integer "app_module_id", null: false
+  end
+
+  add_index "app_modules_infos", ["app_module_id"], name: "index_app_modules_infos_on_app_module_id", using: :btree
+  add_index "app_modules_infos", ["info_id"], name: "index_app_modules_infos_on_info_id", using: :btree
 
   create_table "app_modules_powers", id: false, force: true do |t|
     t.integer "app_module_id"
@@ -224,6 +229,30 @@ ActiveRecord::Schema.define(version: 20160630192405) do
 
   add_index "hosts", ["deployment_id"], name: "index_hosts_on_deployment_id", using: :btree
   add_index "hosts", ["host_model_id"], name: "index_hosts_on_host_model_id", using: :btree
+
+  create_table "hosts_infos", id: false, force: true do |t|
+    t.integer "info_id", null: false
+    t.integer "host_id", null: false
+  end
+
+  add_index "hosts_infos", ["host_id"], name: "index_hosts_infos_on_host_id", using: :btree
+  add_index "hosts_infos", ["info_id"], name: "index_hosts_infos_on_info_id", using: :btree
+
+  create_table "infos", force: true do |t|
+    t.string   "name"
+    t.text     "note"
+    t.datetime "target"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "infos_people", id: false, force: true do |t|
+    t.integer "info_id",   null: false
+    t.integer "person_id", null: false
+  end
+
+  add_index "infos_people", ["info_id"], name: "index_infos_people_on_info_id", using: :btree
+  add_index "infos_people", ["person_id"], name: "index_infos_people_on_person_id", using: :btree
 
   create_table "lifecycles", force: true do |t|
     t.string   "name"
