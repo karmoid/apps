@@ -248,18 +248,18 @@ unless ITOWNER.nil?
   content[:apps].each_with_index do |app,i|
     aarr = app[:module].split("|")
     # Application Stuff
+    puts "#{i} > on cherche a/am:#{aarr.inspect}"
     a = Application.find_by_name(aarr.first)
     if a.nil?
       if @dowrite
         a = Application.create(name: aarr.first, note: "Application cree par Script")
         puts "Application #{aarr.first} creee avec l'id ##{a.id}"
-  #      break
-      else
-        puts "Application #{aarr.first} non trouvee"
+        # break
       end
     end
     # App_module stuff
     a = Application.find_by_name(aarr.first)
+    puts "Application #{aarr.first} non trouvee" if a.nil?
     unless a.nil?
       am = a.app_modules.find_by_name(aarr.last)
       if am.nil?
@@ -267,27 +267,41 @@ unless ITOWNER.nil?
           am = a.app_modules.build(name: aarr.last, note: "AppModule de #{aarr.first} cree par Script")
           am.save
           puts "AppModule #{aarr.last} cree avec l'id ##{am.id}" 
-  #        break
-        else
-          puts "Module applicatif #{aarr.last} non trouve"
+          # break
         end
       end
+      puts "Module applicatif #{aarr.last} non trouve" if am.nil?
       unless am.nil?
+        puts "on a trouve AppModule #{am.id}-#{am.application.name} pour #{a.id}-#{am.name}"
         # contract stuff
         c = Contract.find_by_name(app[:severity])
         if c.nil?
           puts "Severity: #{app[:severity]} inconnue"
           c = createContract(app[:severity])
         end
+
         unless c.nil?
-          if !c.app_modules.find(am)
-            if @dowrite
-              c.app_modules << am
-              puts "Added Severity #{c.name} to AppModule #{am.application.name} / #{am.name}"
-            else
-              puts "Unable to add Severity #{c.name} to AppModule #{am.application.name} / #{am.name}. READONLY"
+          contrats = Contract.joins(:app_modules).where(app_modules: {id: am.id}).where("contracts.name like 'eval-%'")
+          found = false
+          contrats.each_with_index do |contrat,ic|  
+            found = found || contrat.id == c.id
+          end
+          # on ne l'a pas trouvé
+          if !found
+            # maison en a trouvé d'autres !
+            if !contrats.empty?
+              puts "Unable to change Severity #{c.name} to AppModule #{am.application.name} / #{am.name}. READONLY" unless @dowrite
+              contrats.each_with_index do |contrat,i|
+                puts "On #{@dowrite ? "" : "ne"} supprime #{@dowrite ? "" : "PAS"} la severite #{contrat.name} de l'AppModule #{am.application.name} / #{am.name}"
+                am.contracts.delete(contrat) if @dowrite
+              end  
+              puts "on #{@dowrite ? "" : "n'"} ajoute #{@dowrite ? "" : "PAS"} la severite #{c.name} a l'AppModule #{am.application.name} / #{am.name}"
+              am.contracts << c if @dowrite
+              # break
             end
-          end  
+          else
+            puts "on a trouvé la bonne sévérité #{c.name} pour AppModule #{am.application.name} / #{am.name}"
+          end
         else  
           puts "Unable to add Severity #{app[:severity]} to AppModule #{am.application.name} / #{am.name}. UNKNOWN !"
         end
@@ -365,7 +379,7 @@ content[:hosts].each_with_index do |host,i|
       am = a.app_modules.find_by_name(aarr.last)
     end
     if am.nil? || a.nil?
-      puts "Impossible de charger #{aarr.first} /  #{aarr.last}"
+      puts "Impossible de charger #{aarr.first} / #{aarr.last}"
       break
     end
     puts "processing #{h.id}-#{h.name} > #{a.id}-#{a.name} / #{am.id}-#{am.name}"
@@ -390,7 +404,7 @@ content[:hosts].each_with_index do |host,i|
     else
       puts "Creation d'un lifecycle inconnu #{host[:lifecycle]}"  
       lc = createLifecycle(host[:lifecycle])
-      break
+      # break
     end
     if c.nil?
       puts "impossible de charger le contrat #{contrat_name}"
@@ -441,7 +455,7 @@ content[:hosts].each_with_index do |host,i|
         if ti.nil? && @dowrite
           puts "on cree une nouvelle instance pour #{h.id}-#{h.name} / #{t.id}-#{t.name} - nom: #{abbr}-#{host[:device]}"
           ti = TechnoInstance.create(name: "#{abbr}-#{host[:device]}", technology: t, host: h, note: "instance cree par script")
-          break
+          # break
         end
         if ti.nil?
           puts "impossible de continuer, pas d'instance techno"
